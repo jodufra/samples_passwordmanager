@@ -1,0 +1,5 @@
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\GDPService.dll.config
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\GDPService.dll
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\GDPService.pdb
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\obj\Debug\GDPService.dll
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\obj\Debug\GDPService.pdb
