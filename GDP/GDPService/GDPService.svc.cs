@@ -1,4 +1,5 @@
-﻿using System;
+﻿using GDPService.Repositories;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
@@ -11,9 +12,29 @@ namespace GDPService
     // NOTE: In order to launch WCF Test Client for testing this service, please select GDPService.svc or GDPService.svc.cs at the Solution Explorer and start debugging.
     public class GDPService : IGDPService
     {
-        public string Login()
+        private CategoryRepository CategoryRepository;
+        private UserRepository UserRepository;
+
+        public GDPService()
         {
-            return "work done";
+            CategoryRepository = new CategoryRepository();
+            UserRepository = new UserRepository();
+        }
+
+        public string Login(string username, string password)
+        {
+            var user = UserRepository.Get(username, password);
+            return user != null ? user.Token : null;
+        }
+
+        public List<Entities.Category> GetCategories()
+        {
+            return CategoryRepository.Get();
+        }
+
+        public Entities.Category GetCategory(int idCategory)
+        {
+            return CategoryRepository.Get(idCategory);
         }
     }
 }

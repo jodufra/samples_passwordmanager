@@ -3,3 +3,10 @@ D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\GDPService.dll
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\GDPService.pdb
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\obj\Debug\GDPService.dll
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\obj\Debug\GDPService.pdb
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\obj\Debug\GDPService.csprojResolveAssemblyReference.cache
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\Dapper.dll
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\Newtonsoft.Json.dll
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\Dapper.pdb
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\Dapper.xml
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\GDPLibrary.dll
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\GDPLibrary.pdb
