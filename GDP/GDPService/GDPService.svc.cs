@@ -11,7 +11,7 @@ namespace GDPService
     // NOTE: In order to launch WCF Test Client for testing this service, please select GDPService.svc or GDPService.svc.cs at the Solution Explorer and start debugging.
     public class GDPService : IGDPService
     {
-        public string DoWork()
+        public string Login()
         {
             return "work done";
         }
