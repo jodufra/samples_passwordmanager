@@ -44,6 +44,10 @@
     </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL" />
+    <Reference Include="SlideView.Library, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\SlideViewRT.1.0.1\lib\SlideView.Library.dll</HintPath>
+      <Private>True</Private>
+    </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -64,6 +68,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GDPService.svc" />
+    <Content Include="SlideView.Content\SlideView.Library.dll" />
+    <Content Include="SlideView.Content\SlideView.Library\Assets\menu.png" />
+    <Content Include="SlideView.Content\SlideView.Library\SlideView.Library.xr.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
@@ -94,6 +101,8 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <Content Include="SlideView.Content\SlideView.Library\Themes\Generic.xbf" />
+    <Content Include="SlideView.Content\SlideView.Library.pri" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
