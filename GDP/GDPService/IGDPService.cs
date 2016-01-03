@@ -12,7 +12,7 @@ namespace GDPService
     public interface IGDPService
     {
         [OperationContract]
-        string Login(string username, string password);
+        User Login(string username, string password);
 
         [OperationContract]
         List<Category> GetCategories();

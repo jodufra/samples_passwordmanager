@@ -21,10 +21,9 @@ namespace GDPService
             UserRepository = new UserRepository();
         }
 
-        public string Login(string username, string password)
+        public Entities.User Login(string username, string password)
         {
-            var user = UserRepository.Get(username, password);
-            return user != null ? user.Token : null;
+            return UserRepository.Get(username, password);
         }
 
         public List<Entities.Category> GetCategories()

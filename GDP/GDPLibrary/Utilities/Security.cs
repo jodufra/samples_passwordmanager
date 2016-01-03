@@ -9,7 +9,7 @@ namespace GDPLibrary.Utils
 {
     public class Security
     {
-        public static String GetMD5Hash(String input)
+        public static String GetSHA256Hash(String input)
         {
             if (String.IsNullOrEmpty(input))
                 return "";
