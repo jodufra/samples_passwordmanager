@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="c7a187ee-bdf5-437d-866b-9638c5b88246" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings>
+      <CollectionMapping TypeName="System.Collections.ObjectModel.ObservableCollection`1" Category="List" />
+    </CollectionMappings>
+    <GenerateSerializableTypes>false</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost:52358/GDPService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="GDPService.xsd" MetadataType="Schema" ID="60f0190a-3ec6-49ed-95ec-278669eddfe5" SourceId="1" SourceUrl="http://localhost:52358/GDPService.svc?xsd=xsd2" />
+    <MetadataFile FileName="GDPService1.xsd" MetadataType="Schema" ID="ab6a9cb3-efc2-4def-8f8f-7dbcf4e2f897" SourceId="1" SourceUrl="http://localhost:52358/GDPService.svc?xsd=xsd1" />
+    <MetadataFile FileName="GDPService2.xsd" MetadataType="Schema" ID="49b4af2c-e000-42e0-a6e1-a9da04e7226f" SourceId="1" SourceUrl="http://localhost:52358/GDPService.svc?xsd=xsd0" />
+    <MetadataFile FileName="GDPService.wsdl" MetadataType="Wsdl" ID="9a57c1e3-1ef1-4cfc-9598-f242c31125cb" SourceId="1" SourceUrl="http://localhost:52358/GDPService.svc?wsdl" />
+    <MetadataFile FileName="GDPService.disco" MetadataType="Disco" ID="3c192046-0991-48f4-bfc9-e7549091475f" SourceId="1" SourceUrl="http://localhost:52358/GDPService.svc?disco" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

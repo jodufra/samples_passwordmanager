@@ -36,8 +36,7 @@
                     
                     <!--Certificate Stuff-->
                     <StackPanel Orientation="Horizontal">
-                        <Button Name="setCertBtn" Content="Choose" Width="84" Background="#FF726E66" RequestedTheme="Dark" Foreground="White" Click="setCertBtn_Click"/>
-                        <Button Name="removeCertBtn" Content="Remove" Width="89" Background="#FF726E66" RequestedTheme="Dark" Foreground="White"/>
+                        <ComboBox Name="certificatesListCB" />
                     </StackPanel>
 
                     <StackPanel Orientation="Horizontal" Name="certDataGrid">
@@ -72,7 +71,7 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0 14 0 0">
-                    <Button Name="okBtn" Content="OK" Width="420" Background="#FF0559D3" />
+                    <Button Name="okBtn" Content="OK" Width="420" Background="#FF0559D3" Click="okBtn_Click" />
                     <Button Name="cancelBtn" Content="Cancel" Width="420" Background="#FF726E66" Click="cancelBtn_Click"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock Text="Made with " VerticalAlignment="Center" Margin="5 0 5 0"/>

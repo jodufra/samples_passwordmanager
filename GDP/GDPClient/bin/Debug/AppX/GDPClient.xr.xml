@@ -121,6 +121,9 @@
       <RootProperty Name="VerticalAlignment" />
     </RootType>
     <RootType FullName="GDPClient.MainPage" />
+    <RootType FullName="Windows.UI.Xaml.Controls.ComboBox">
+      <RootProperty Name="Name" />
+    </RootType>
     <RootType FullName="GDPClient.SignUpPage" />
   </Roots.RootTypes>
 </Roots>
