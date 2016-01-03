@@ -46,7 +46,6 @@
 
             </StackPanel>
             <ListView x:ConnectionId='3' Name="userEntrieslv" Grid.Row="1"                                          >
-                <ListViewHeaderItem>asd</ListViewHeaderItem>
                 <ListBoxItem>Item One</ListBoxItem>
                 <ListBoxItem>Item Two</ListBoxItem>
             </ListView>

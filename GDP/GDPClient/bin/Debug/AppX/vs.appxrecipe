@@ -20,13 +20,13 @@
     <AppXManifest Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-01-03T02:28:47.721</Modified>
+      <Modified>2016-01-03T17:29:28.571</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\GDPClient.exe">
       <PackagePath>GDPClient.exe</PackagePath>
-      <Modified>2016-01-03T15:58:41.279</Modified>
+      <Modified>2016-01-03T19:37:58.048</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl.dll">
       <PackagePath>SlidePaneControl.dll</PackagePath>
@@ -80,15 +80,15 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2016-01-03T01:47:15.683</Modified>
+      <Modified>2016-01-03T16:17:23.774</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\SignUpPage.xbf">
       <PackagePath>SignUpPage.xbf</PackagePath>
-      <Modified>2016-01-03T15:58:40.928</Modified>
+      <Modified>2016-01-03T17:53:00.419</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\GDPClient.xr.xml">
       <PackagePath>GDPClient.xr.xml</PackagePath>
-      <Modified>2016-01-02T21:54:41.455</Modified>
+      <Modified>2016-01-03T17:53:00.376</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl\SlidePaneControl.xr.xml">
       <PackagePath>SlidePaneControl\SlidePaneControl.xr.xml</PackagePath>
@@ -100,7 +100,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-01-03T02:28:46.489</Modified>
+      <Modified>2016-01-03T17:29:26.987</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

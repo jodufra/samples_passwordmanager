@@ -8,6 +8,9 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDPLibrary", "GDPLibrary\GDPLibrary.csproj", "{F58AC514-12FF-4FCB-A1C4-5F0564D8EB56}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDPClient", "GDPClient\GDPClient.csproj", "{ADDCBAE6-D6C1-4AC5-B63C-4FE7FA73D13E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{02B238E2-987F-4562-85FF-1CD433AC4934} = {02B238E2-987F-4562-85FF-1CD433AC4934}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
