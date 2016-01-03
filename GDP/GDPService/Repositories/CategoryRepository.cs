@@ -1,5 +1,4 @@
-﻿using GDPService.Entities;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Data.Common;
 using System.Data.SqlClient;
 using System.Data;
 using Dapper;
+using GDPLibrary.Entities;
 
 namespace GDPService.Repositories
 {

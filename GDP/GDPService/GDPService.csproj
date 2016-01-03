@@ -68,16 +68,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="GDPService.svc" />
-    <Content Include="SlideView.Content\SlideView.Library.dll" />
-    <Content Include="SlideView.Content\SlideView.Library\Assets\menu.png" />
-    <Content Include="SlideView.Content\SlideView.Library\SlideView.Library.xr.xml" />
     <Content Include="Web.config">
       <SubType>Designer</SubType>
     </Content>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Entities\Category.cs" />
-    <Compile Include="Entities\User.cs" />
     <Compile Include="GDPService.svc.cs">
       <DependentUpon>GDPService.svc</DependentUpon>
     </Compile>
@@ -101,17 +96,12 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <Content Include="SlideView.Content\SlideView.Library\Themes\Generic.xbf" />
-    <Content Include="SlideView.Content\SlideView.Library.pri" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\GDPLibrary\GDPLibrary.csproj">

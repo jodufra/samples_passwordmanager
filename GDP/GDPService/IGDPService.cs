@@ -1,4 +1,4 @@
-﻿using GDPService.Entities;
+﻿using GDPLibrary.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,12 +12,9 @@ namespace GDPService
     public interface IGDPService
     {
         [OperationContract]
-        User Login(string username, string password);
+        User BasicAuth(string username, string password);
 
         [OperationContract]
         List<Category> GetCategories();
-
-        [OperationContract]
-        Category GetCategory(int idCategory);
     }
 }

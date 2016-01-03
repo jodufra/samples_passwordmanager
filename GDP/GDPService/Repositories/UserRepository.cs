@@ -1,5 +1,5 @@
 ﻿using Dapper;
-using GDPService.Entities;
+using GDPLibrary.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,4 +1,5 @@
-﻿using GDPService.Repositories;
+﻿using GDPLibrary.Entities;
+using GDPService.Repositories;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,19 +22,18 @@ namespace GDPService
             UserRepository = new UserRepository();
         }
 
-        public Entities.User Login(string username, string password)
+        #region Users and Auths
+        public User BasicAuth(string username, string password)
         {
             return UserRepository.Get(username, password);
         }
+        #endregion
 
-        public List<Entities.Category> GetCategories()
+        #region Categories
+        public List<Category> GetCategories()
         {
             return CategoryRepository.Get();
         }
-
-        public Entities.Category GetCategory(int idCategory)
-        {
-            return CategoryRepository.Get(idCategory);
-        }
+        #endregion
     }
 }

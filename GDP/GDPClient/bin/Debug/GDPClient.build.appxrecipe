@@ -1,79 +1,79 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <PropertyGroup>
-    <Machine>DESKTOP-PEV1HHN</Machine>
-    <WindowsUser>sam71</WindowsUser>
+    <Machine>PC-JOEL</Machine>
+    <WindowsUser>joeld</WindowsUser>
     <TargetPlatformIdentifier>Windows</TargetPlatformIdentifier>
     <SolutionConfiguration>Debug|AnyCPU</SolutionConfiguration>
     <PackageArchitecture>neutral</PackageArchitecture>
     <PackageIdentityName>8924da4d-0210-4290-a8fe-1f6608d87478</PackageIdentityName>
-    <IntermediateOutputPath>C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\obj\Debug\</IntermediateOutputPath>
+    <IntermediateOutputPath>D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\</IntermediateOutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <AppXManifest Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\AppxManifest.xml">
+    <AppXManifest Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\GDPClient.exe">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\GDPClient.exe">
       <PackagePath>GDPClient.exe</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl.dll">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl.dll">
       <PackagePath>SlidePaneControl.dll</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\Assets\certificate_64.png">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\Assets\certificate_64.png">
       <PackagePath>Assets\certificate_64.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\Assets\Logo.scale-100.png">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\Assets\Logo.scale-100.png">
       <PackagePath>Assets\Logo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\Assets\Shield_128.png">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\Assets\Shield_128.png">
       <PackagePath>Assets\Shield_128.png</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\Assets\SmallLogo.scale-100.png">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\Assets\SmallLogo.scale-100.png">
       <PackagePath>Assets\SmallLogo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\Assets\SplashScreen.scale-100.png">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\Assets\SplashScreen.scale-100.png">
       <PackagePath>Assets\SplashScreen.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\Assets\SplashScreen.scale-140.png">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\Assets\SplashScreen.scale-140.png">
       <PackagePath>Assets\SplashScreen.scale-140.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\Assets\SplashScreen.scale-180.png">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\Assets\SplashScreen.scale-180.png">
       <PackagePath>Assets\SplashScreen.scale-180.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\Assets\StoreLogo.scale-100.png">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\Assets\StoreLogo.scale-100.png">
       <PackagePath>Assets\StoreLogo.scale-100.png</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\App.xbf">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\LoginPage.xbf">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\LoginPage.xbf">
       <PackagePath>LoginPage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\MainPage.xbf">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\SignUpPage.xbf">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\SignUpPage.xbf">
       <PackagePath>SignUpPage.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\GDPClient.xr.xml">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\GDPClient.xr.xml">
       <PackagePath>GDPClient.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl\SlidePaneControl.xr.xml">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl\SlidePaneControl.xr.xml">
       <PackagePath>SlidePaneControl\SlidePaneControl.xr.xml</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl\Themes\Generic.xbf">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl\Themes\Generic.xbf">
       <PackagePath>SlidePaneControl\Themes\Generic.xbf</PackagePath>
     </AppxPackagedFile>
-    <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\resources.pri">
+    <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
     </AppxPackagedFile>
   </ItemGroup>

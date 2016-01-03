@@ -36,6 +36,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -44,18 +45,15 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Entitites\Category.cs" />
+    <Compile Include="Entitites\Entry.cs" />
+    <Compile Include="Entitites\Record.cs" />
+    <Compile Include="Entitites\User.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Utilities\Security.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
-    <None Include="SlideView.Content\SlideView.Library.pri" />
-    <None Include="SlideView.Content\SlideView.Library\Themes\Generic.xbf" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="SlideView.Content\SlideView.Library.dll" />
-    <Content Include="SlideView.Content\SlideView.Library\Assets\menu.png" />
-    <Content Include="SlideView.Content\SlideView.Library\SlideView.Library.xr.xml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

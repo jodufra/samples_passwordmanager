@@ -4,7 +4,7 @@ using System.Linq;
 using System.Runtime.Serialization;
 using System.Web;
 
-namespace GDPService.Entities
+namespace GDPLibrary.Entities
 {
     [DataContract]
     public class Category
@@ -13,6 +13,7 @@ namespace GDPService.Entities
         string title = "";
         string categoryPath = "0";
         int? parentCategoryId = null;
+        string icon = null;
 
         [DataMember]
         public int IdCategory
@@ -37,6 +38,12 @@ namespace GDPService.Entities
         {
             get { return parentCategoryId; }
             set { parentCategoryId = value; }
+        }
+        [DataMember]
+        public string Icon
+        {
+            get { return icon; }
+            set { icon = value; }
         }
 
     }
