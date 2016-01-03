@@ -6,6 +6,7 @@ using System.Web;
 
 namespace GDPLibrary.Entities
 {
+    [DataContract]
     public class User
     {
         private int idUser;

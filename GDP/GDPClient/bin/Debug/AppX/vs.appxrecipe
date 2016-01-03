@@ -20,13 +20,21 @@
     <AppXManifest Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
+<<<<<<< HEAD
       <Modified>2016-01-03T23:05:44.218</Modified>
+=======
+      <Modified>2016-01-03T20:46:35.820</Modified>
+>>>>>>> origin/master
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\GDPClient.exe">
       <PackagePath>GDPClient.exe</PackagePath>
+<<<<<<< HEAD
       <Modified>2016-01-03T23:05:44.378</Modified>
+=======
+      <Modified>2016-01-03T21:51:48.784</Modified>
+>>>>>>> origin/master
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl.dll">
       <PackagePath>SlidePaneControl.dll</PackagePath>
@@ -72,23 +80,43 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
+<<<<<<< HEAD
       <Modified>2016-01-03T23:07:58.294</Modified>
+=======
+      <Modified>2016-01-03T20:46:34.943</Modified>
+>>>>>>> origin/master
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\LoginPage.xbf">
       <PackagePath>LoginPage.xbf</PackagePath>
+<<<<<<< HEAD
       <Modified>2016-01-03T23:07:58.296</Modified>
+=======
+      <Modified>2016-01-03T20:46:34.943</Modified>
+>>>>>>> origin/master
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
+<<<<<<< HEAD
       <Modified>2016-01-03T23:07:58.307</Modified>
+=======
+      <Modified>2016-01-03T20:46:34.943</Modified>
+>>>>>>> origin/master
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\SignUpPage.xbf">
       <PackagePath>SignUpPage.xbf</PackagePath>
+<<<<<<< HEAD
       <Modified>2016-01-03T23:07:58.308</Modified>
+=======
+      <Modified>2016-01-03T20:46:34.943</Modified>
+>>>>>>> origin/master
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\GDPClient.xr.xml">
       <PackagePath>GDPClient.xr.xml</PackagePath>
+<<<<<<< HEAD
       <Modified>2016-01-03T19:40:19.583</Modified>
+=======
+      <Modified>2016-01-03T20:08:29.509</Modified>
+>>>>>>> origin/master
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl\SlidePaneControl.xr.xml">
       <PackagePath>SlidePaneControl\SlidePaneControl.xr.xml</PackagePath>
@@ -100,7 +128,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
+<<<<<<< HEAD
       <Modified>2016-01-03T23:07:58.627</Modified>
+=======
+      <Modified>2016-01-03T20:46:35.559</Modified>
+>>>>>>> origin/master
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>

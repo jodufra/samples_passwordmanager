@@ -1,4 +1,6 @@
-﻿using System;
+﻿using GDPLibrary.Utilities;
+using GDPLibrary.Utils;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -14,14 +16,16 @@ namespace GDPLibrary.Entities
         public string Url { get; set; }
 
 
-        public static Entry Parse(User user, byte[] stream)
+        public static Entry Parse(byte[] source, User user)
         {
-            return null;
+            var decrypted = Security.DecryptAES(source, user.Token);
+            return Serializer.FromByteArray(source, typeof(Entry)) as Entry;
         }
 
-        public static byte[] Crypt(User user, Entry entry)
+        public static byte[] Crypt(Entry entry, User user)
         {
-            return null;
+            var source = Serializer.ToByteArray(entry);
+            return Security.EncryptAES(source, user.Token);
         }
 
     }
