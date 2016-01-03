@@ -29,7 +29,7 @@ namespace GDPClient
 
         private void signupBtn_Click(object sender, RoutedEventArgs e)
         {
-            Frame.Navigate(typeof(SignUpPage));
+            Frame.Navigate(typeof(SignUpPage)); 
         }
 
         private void loginBtn_Click(object sender, RoutedEventArgs e)

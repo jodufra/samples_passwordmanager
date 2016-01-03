@@ -1,0 +1,87 @@
+﻿<Page
+    x:Class="GDPClient.SignUpPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GDPClient"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <Grid Name="mainGrid" Background="#2C397F" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/> 
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" >
+            <Grid Name="innerGrid">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="220"/>
+                    <RowDefinition Height="210"/>
+                    <RowDefinition Height="130"/>
+                </Grid.RowDefinitions>
+
+                <StackPanel Grid.Row="0" Orientation="Vertical">
+                    <Canvas Width="128" Height="128">
+                        <Image Source="Assets/Shield_128.png" />
+                    </Canvas>
+                    <TextBlock Text="Password Manager" FontSize="36" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <TextBlock Text="SignUp" FontSize="20" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                </StackPanel>
+
+                <StackPanel Grid.Row="1">
+                    <TextBox Name="emailBox" PlaceholderText="Your Email" Width="420"/>
+                    <PasswordBox Name="passwordBox1" PlaceholderText="Password" Width="420"/>
+                    <PasswordBox Name="passwordBox2" PlaceholderText="Confirm Password" Width="420"/>
+                    <TextBlock Text="Certificate: (Optional)" Margin="0 10 0 0"/>
+                    
+                    <!--Certificate Stuff-->
+                    <StackPanel Orientation="Horizontal">
+                        <Button Name="setCertBtn" Content="Choose" Width="84" Background="#FF726E66" RequestedTheme="Dark" Foreground="White" Click="setCertBtn_Click"/>
+                        <Button Name="removeCertBtn" Content="Remove" Width="89" Background="#FF726E66" RequestedTheme="Dark" Foreground="White"/>
+                    </StackPanel>
+
+                    <StackPanel Orientation="Horizontal" Name="certDataGrid">
+                        <Image Source="Assets/certificate_64.png" Height="48" Width="48" />
+                        <StackPanel Orientation="Horizontal">
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="14"/>
+                                    <RowDefinition Height="14"/>
+                                    <RowDefinition Height="14"/>
+                                </Grid.RowDefinitions>
+
+                                <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                    <TextBlock Text="Issued to:" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark"  Height="14" />
+                                    <TextBlock Name="issuedToTb" Text=" CAcert Wot User" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                    <TextBlock Text="Issued by:" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark"  Height="14" />
+                                    <TextBlock Name="issuedByTb" Text=" CAcert" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal" Grid.Row="2">
+                                    <TextBlock Text="Valid from" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark"  Height="14" />
+                                    <TextBlock Name="dateCertFromTb" Text=" 31/12/2015" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
+                                    <TextBlock Text=" to " VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
+                                    <TextBlock Name="dateCertToTb" Text=" 31/12/2015" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
+                                </StackPanel>
+                            </Grid>
+
+                        </StackPanel>
+                    </StackPanel>
+                    <!--//-->
+                </StackPanel>
+
+                <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0 14 0 0">
+                    <Button Name="okBtn" Content="OK" Width="420" Background="#FF0559D3" />
+                    <Button Name="cancelBtn" Content="Cancel" Width="420" Background="#FF726E66" Click="cancelBtn_Click"/>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                        <TextBlock Text="Made with " VerticalAlignment="Center" Margin="5 0 5 0"/>
+                        <TextBlock FontFamily="Segoe UI Symbol" Text="&#xE007;" FontSize="30" Foreground="Red"/>
+                        <TextBlock Text="by Joel and Rúben" VerticalAlignment="Center" Margin="5 0 5 0" />
+                    </StackPanel>
+                </StackPanel>
+               
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Page>
