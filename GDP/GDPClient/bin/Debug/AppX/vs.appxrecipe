@@ -20,13 +20,13 @@
     <AppXManifest Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\AppxManifest.xml">
       <PackagePath>AppxManifest.xml</PackagePath>
       <ReRegisterAppIfChanged>true</ReRegisterAppIfChanged>
-      <Modified>2016-01-03T16:23:30.975</Modified>
+      <Modified>2016-01-03T20:46:35.820</Modified>
     </AppXManifest>
   </ItemGroup>
   <ItemGroup>
     <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\GDPClient.exe">
       <PackagePath>GDPClient.exe</PackagePath>
-      <Modified>2016-01-03T16:23:29.024</Modified>
+      <Modified>2016-01-03T21:51:48.784</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl.dll">
       <PackagePath>SlidePaneControl.dll</PackagePath>
@@ -72,23 +72,23 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2016-01-03T16:23:28.604</Modified>
+      <Modified>2016-01-03T20:46:34.943</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\LoginPage.xbf">
       <PackagePath>LoginPage.xbf</PackagePath>
-      <Modified>2016-01-03T16:23:28.605</Modified>
+      <Modified>2016-01-03T20:46:34.943</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
-      <Modified>2016-01-03T16:23:28.605</Modified>
+      <Modified>2016-01-03T20:46:34.943</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\SignUpPage.xbf">
       <PackagePath>SignUpPage.xbf</PackagePath>
-      <Modified>2016-01-03T16:23:28.605</Modified>
+      <Modified>2016-01-03T20:46:34.943</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\GDPClient.xr.xml">
       <PackagePath>GDPClient.xr.xml</PackagePath>
-      <Modified>2016-01-03T16:23:28.354</Modified>
+      <Modified>2016-01-03T20:08:29.509</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl\SlidePaneControl.xr.xml">
       <PackagePath>SlidePaneControl\SlidePaneControl.xr.xml</PackagePath>
@@ -100,7 +100,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\resources.pri">
       <PackagePath>resources.pri</PackagePath>
-      <Modified>2016-01-03T16:23:29.950</Modified>
+      <Modified>2016-01-03T20:46:35.559</Modified>
     </AppxPackagedFile>
   </ItemGroup>
   <ItemGroup>
