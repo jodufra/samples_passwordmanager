@@ -1,0 +1,144 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>Win8Interop</name>
+    </assembly>
+    <members>
+        <member name="M:Win8Interop.Extensions.AsIRandomAccessStream(System.IO.Stream,System.Boolean)">
+            <summary>
+            Creates an IRandomAccessStream from this System.IO.Stream
+            </summary>
+            <param name="stream"></param>
+            <param name="storedLength">If set to TRUE, the length of the stream will be stored at the beginning of the System.IO.Stream. Useful for file systems such as IC80FS which do not support manual size allocation.</param>
+            <returns></returns>
+        </member>
+        <member name="M:Win8Interop.Extensions.OpenSharedProcess(Windows.Storage.StorageFile)">
+            <summary>
+            Opens a file which can be read to and written to between multiple processes. This returns a <see cref="T:System.IO.Stream"/> which is automatically synchronized between multiple processes. 
+            </summary>
+            <param name="file"></param>
+            <returns></returns>
+        </member>
+        <member name="T:Win8Interop.DualStream">
+            <summary>
+            Represents a stream which encapsulates a Metro IRandomAccessStream
+            </summary>
+        </member>
+        <member name="T:Win8Interop.ThreadPool">
+            <summary>
+            Manages threads in a pool
+            </summary>
+        </member>
+        <member name="M:Win8Interop.ThreadPool.QueueUserWorkItem(Win8Interop.WorkItemStartDelegate,System.Object)">
+            <summary>
+            Schedules a delegate for execution on the thread pool
+            </summary>
+            <param name="dgate">The delegate to schedule</param>
+            <param name="sender">An object to send to the delegate</param>
+        </member>
+        <member name="T:Win8Interop.Thread">
+            <summary>
+            Represents a thread
+            </summary>
+        </member>
+        <member name="P:Win8Interop.Thread.CurrentThread">
+            <summary>
+            Gets the current thread
+            </summary>
+        </member>
+        <member name="T:Win8Interop.RijndaelManagedTransform">
+            <summary>
+            Used for encrypting stuff symmetrically
+            </summary>
+        </member>
+        <member name="T:Win8Interop.ICryptoTransform">
+            <summary>
+            Represents an interface for a cryptographic transform
+            </summary>
+        </member>
+        <member name="M:Win8Interop.ICryptoTransform.TransformBlock(System.Byte[],System.Int32,System.Int32,System.Byte[],System.Int32)">
+            <summary>
+            Transforms a block of data
+            </summary>
+            <param name="input">The input data</param>
+            <param name="srcoffset">The offset in the input data</param>
+            <param name="len">The length of data to transform</param>
+            <param name="output">The output data</param>
+            <param name="outoffset">The offset in the output buffer to begin writing to</param>
+        </member>
+        <member name="P:Win8Interop.ICryptoTransform.InputBlockSize">
+            <summary>
+            The input block size
+            </summary>
+        </member>
+        <member name="T:Win8Interop.Rfc2898DeriveBytes">
+            <summary>
+            Used to get some bytes from arbitrary data and stuff
+            </summary>
+        </member>
+        <member name="M:Win8Interop.Rfc2898DeriveBytes.#ctor(System.String,System.Byte[])">
+            <summary>
+            Derive them from a string
+            </summary>
+            <param name="text">The string to derive from</param>
+            <param name="hash">The salt (must use peper for certain algorithms as well)</param>
+        </member>
+        <member name="M:Win8Interop.Rfc2898DeriveBytes.#ctor(System.Byte[],System.Byte[],System.Int32)">
+            <summary>
+            Derive from an array of bytes
+            </summary>
+            <param name="text">The byte array</param>
+            <param name="hash">Some salt (must use pepper for certain algorithms as well)</param>
+            <param name="iterations">The number of iterations</param>
+        </member>
+        <member name="M:Win8Interop.Rfc2898DeriveBytes.GetBytes(System.Int32)">
+            <summary>
+            Derives an array of bytes from this instance
+            </summary>
+            <param name="cb">The number of bytes to derive</param>
+            <returns></returns>
+        </member>
+        <member name="T:Win8Interop.SHA1">
+            <summary>
+            Represents a SHA1 implementation
+            </summary>
+        </member>
+        <member name="T:Win8Interop.Rijndael">
+            <summary>
+            Represents a Rijndael implementation
+            </summary>
+        </member>
+        <member name="M:Win8Interop.Rijndael.CreateEncryptor">
+            <summary>
+            Creates an encryptor
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="M:Win8Interop.Rijndael.CreateDecryptor">
+            <summary>
+            Creates a decryptor
+            </summary>
+            <returns></returns>
+        </member>
+        <member name="P:Win8Interop.Rijndael.Key">
+            <summary>
+            The key
+            </summary>
+        </member>
+        <member name="P:Win8Interop.Rijndael.IV">
+            <summary>
+            The Initialization Vector
+            </summary>
+        </member>
+        <member name="T:Win8Interop.RijndaelManaged">
+            <summary>
+            Represents a managed instance of the Rijndael algorithm
+            </summary>
+        </member>
+        <member name="T:Win8Interop.SHA1Managed">
+            <summary>
+            Represents a managed implementation of the SHA1 algorithm
+            </summary>
+        </member>
+    </members>
+</doc>
