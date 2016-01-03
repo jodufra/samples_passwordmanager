@@ -28,7 +28,7 @@ namespace GDPClient
     {
         public MainPage()
         {
-            this.InitializeComponent();
+            this.InitializeComponent();  
         }
 
         private void SplitViewButton_Click(object sender, RoutedEventArgs e)

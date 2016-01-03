@@ -46,7 +46,6 @@
 
             </StackPanel>
             <ListView Name="userEntrieslv" Grid.Row="1" DoubleTapped="userEntrieslv_DoubleTapped">
-                <ListViewHeaderItem>asd</ListViewHeaderItem>
                 <ListBoxItem>Item One</ListBoxItem>
                 <ListBoxItem>Item Two</ListBoxItem>
             </ListView>

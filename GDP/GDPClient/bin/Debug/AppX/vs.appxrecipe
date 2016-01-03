@@ -26,7 +26,7 @@
   <ItemGroup>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\GDPClient.exe">
       <PackagePath>GDPClient.exe</PackagePath>
-      <Modified>2016-01-03T02:59:53.923</Modified>
+      <Modified>2016-01-03T15:58:41.279</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\packages\SlidePane.1.1\lib\netcore451\SlidePaneControl.dll">
       <PackagePath>SlidePaneControl.dll</PackagePath>
@@ -72,11 +72,11 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\App.xbf">
       <PackagePath>App.xbf</PackagePath>
-      <Modified>2016-01-01T23:24:10.834</Modified>
+      <Modified>2016-01-03T15:58:40.912</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\LoginPage.xbf">
       <PackagePath>LoginPage.xbf</PackagePath>
-      <Modified>2016-01-02T21:54:41.484</Modified>
+      <Modified>2016-01-03T15:58:40.928</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\MainPage.xbf">
       <PackagePath>MainPage.xbf</PackagePath>
@@ -84,7 +84,7 @@
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\SignUpPage.xbf">
       <PackagePath>SignUpPage.xbf</PackagePath>
-      <Modified>2016-01-03T01:44:53.150</Modified>
+      <Modified>2016-01-03T15:58:40.928</Modified>
     </AppxPackagedFile>
     <AppxPackagedFile Include="C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\bin\Debug\GDPClient.xr.xml">
       <PackagePath>GDPClient.xr.xml</PackagePath>

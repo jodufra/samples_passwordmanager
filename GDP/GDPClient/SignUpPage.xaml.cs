@@ -39,7 +39,7 @@ namespace GDPClient
         private void setCertBtn_Click(object sender, RoutedEventArgs e)
         {
             var task = CertificateStores.FindAllAsync();
-            task.AsTask().Wait();
+            task.AsTask().Wait();  
 
         }
 
