@@ -57,7 +57,6 @@ D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\AppxManifest.xml
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\GDPClient.build.appxrecipe
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\SlidePaneControl.dll
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\bin\Debug\SlidePaneControl.pri
-D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\GDPClient.csprojResolveAssemblyReference.cache
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\App.g.i.cs
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\App.g.cs
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\LoginPage.g.i.cs
@@ -70,12 +69,12 @@ D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\XamlTypeInfo.g.cs
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\App.xaml
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\LoginPage.xaml
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\MainPage.xaml
-D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\SignUpPage.xaml
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\App.xbf
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\LoginPage.xbf
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\MainPage.xbf
-D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\SignUpPage.xbf
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\XamlSaveStateFile.xml
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\SignUpPage.xaml
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\SignUpPage.xbf
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\GDPClient.exe
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\GDPClient.pdb
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\GDPClient.csproj.GenerateResource.Cache
@@ -92,3 +91,4 @@ D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\qualifiers.txt.intermediate
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\MultipleQualifiersPerDimensionFound.txt
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\SlidePaneControl.pri.xml
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\ProjectArchitectures.txt
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\obj\Debug\GDPClient.csprojResolveAssemblyReference.cache

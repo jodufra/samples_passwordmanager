@@ -1,1 +1,1 @@
-D:\Dropbox\ESTG\SI\sigdp\GDP\GDPClient\GDPClient.csproj;neutral
+C:\Users\sam71\Source\Repos\sigdp\GDP\GDPClient\GDPClient.csproj;neutral
