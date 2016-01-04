@@ -23,9 +23,19 @@ namespace GDPService
         }
 
         #region Users and Auths
-        public User BasicAuth(string username, string password)
+        public User Login(string username, string password)
         {
             return UserRepository.Get(username, password);
+        }
+
+        public User LoginWithCertificate()
+        {
+            throw new NotImplementedException();
+        }
+
+        public List<string> RegisterUser(User user)
+        {
+            throw new NotImplementedException();
         }
         #endregion
 
@@ -35,5 +45,15 @@ namespace GDPService
             return CategoryRepository.Get();
         }
         #endregion
+
+        #region Records
+        public List<Record> GetRecords(string token)
+        {
+            throw new NotImplementedException();
+        }
+        #endregion
+
+
+
     }
 }
