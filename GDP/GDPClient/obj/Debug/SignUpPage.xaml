@@ -9,10 +9,10 @@
 
     <Grid Name="mainGrid" Background="#2C397F" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
         <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
+            <RowDefinition Height="*"/> 
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" MinWidth="340" MaxWidth="420">
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" >
             <Grid Name="innerGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="220"/>
@@ -29,19 +29,18 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="1">
-                    <TextBox Name="emailBox" PlaceholderText="Your Email" />
-                    <PasswordBox Name="passwordBox1" PlaceholderText="Password" />
-                    <PasswordBox Name="passwordBox2" PlaceholderText="Confirm Password" />
+                    <TextBox Name="emailBox" PlaceholderText="Your Email" Width="420"/>
+                    <PasswordBox Name="passwordBox1" PlaceholderText="Password" Width="420"/>
+                    <PasswordBox Name="passwordBox2" PlaceholderText="Confirm Password" Width="420"/>
                     <TextBlock Text="Certificate: (Optional)" Margin="0 10 0 0"/>
-
+                    
                     <!--Certificate Stuff-->
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox Name="certificatesListCB"  SelectionChanged="certificatesListCB_SelectionChanged" Width="305"/>
-                        <Button x:Name="refreshCertsBtn"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Content="&#xE72C;" ToolTipService.ToolTip="Refresh certificates from store" Click="refreshCertsBtn_Click"/>
+                        <ComboBox Name="certificatesListCB" />
                     </StackPanel>
 
-                    <StackPanel Orientation="Horizontal" Name="certDataGrid" Visibility="Collapsed">
-                        <Image Source="Assets/certificate.png" Height="48" Width="48" />
+                    <StackPanel Orientation="Horizontal" Name="certDataGrid">
+                        <Image Source="Assets/certificate_64.png" Height="48" Width="48" />
                         <StackPanel Orientation="Horizontal">
                             <Grid>
                                 <Grid.RowDefinitions>
@@ -52,17 +51,17 @@
 
                                 <StackPanel Orientation="Horizontal" Grid.Row="0">
                                     <TextBlock Text="Issued to:" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark"  Height="14" />
-                                    <TextBlock Name="issuedToTb" Text="" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
+                                    <TextBlock Name="issuedToTb" Text=" CAcert Wot User" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="1">
                                     <TextBlock Text="Issued by:" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark"  Height="14" />
-                                    <TextBlock Name="issuedByTb" Text="" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
+                                    <TextBlock Name="issuedByTb" Text=" CAcert" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
                                 </StackPanel>
                                 <StackPanel Orientation="Horizontal" Grid.Row="2">
                                     <TextBlock Text="Valid from" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark"  Height="14" />
-                                    <TextBlock Name="dateCertFromTb" Text="" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
+                                    <TextBlock Name="dateCertFromTb" Text=" 31/12/2015" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
                                     <TextBlock Text=" to " VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
-                                    <TextBlock Name="dateCertToTb" Text="" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
+                                    <TextBlock Name="dateCertToTb" Text=" 31/12/2015" VerticalAlignment="Top" FontSize="12" RequestedTheme="Dark" Height="14"/>
                                 </StackPanel>
                             </Grid>
 
@@ -72,16 +71,17 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0 14 0 0">
-                    <Button Name="okBtn" Content="OK"  Background="#FF0559D3"  Click="okBtn_Click" Width="340" />
-                    <Button Name="cancelBtn" Content="Cancel" Background="#FF726E66" Click="cancelBtn_Click" Width="340"/>
+                    <Button x:ConnectionId='1' Name="okBtn" Content="OK" Width="420" Background="#FF0559D3"                     />
+                    <Button x:ConnectionId='2' Name="cancelBtn" Content="Cancel" Width="420" Background="#FF726E66"                        />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock Text="Made with " VerticalAlignment="Center" Margin="5 0 5 0"/>
                         <TextBlock FontFamily="Segoe UI Symbol" Text="&#xE007;" FontSize="30" Foreground="Red"/>
                         <TextBlock Text="by Joel and Rúben" VerticalAlignment="Center" Margin="5 0 5 0" />
                     </StackPanel>
                 </StackPanel>
-
+               
             </Grid>
         </StackPanel>
     </Grid>
 </Page>
+

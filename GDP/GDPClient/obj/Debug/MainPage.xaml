@@ -1,0 +1,159 @@
+﻿<Page
+    x:Class="GDPClient.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GDPClient"
+    xmlns:sp="using:SlidePane"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    xmlns:сontrol="using:SlidePaneControl"
+    mc:Ignorable="d">
+
+    <сontrol:SlidePane x:Name="SlidePane">
+        <сontrol:SlidePane.LeftPane>
+            <сontrol:ContentPane ButtonVisibility="Visible">
+                <Grid Width="350" Background="#FF8892C4">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock Text="Menu" FontSize="28" Padding="5"/>
+                        <ListView Name="catsLv" HorizontalAlignment="Left" VerticalAlignment="Top" Width="350">
+                            <ListViewItem Content="All" Margin="0" Padding="5" IsSelected="True" />
+                            <ListViewItem Content="Windows" Margin="50 0 0 0" Padding="5" />
+                            <ListViewItem Content="Network" Margin="50 0 0 0" Padding="5"/>
+                            <ListViewItem Content="Internet" Margin="50 0 0 0" Padding="5"/>
+                            <ListViewItem Content="Email" Margin="50 0 0 0" Padding="5"/>
+                            <ListViewItem Content="HomeBanking" Margin="50 0 0 0" Padding="5"/>
+                        </ListView>
+                        <Button x:ConnectionId='1' Name="settingsBtn" Width="350" Background="#FF5977FF"                          >Account Settings</Button>
+                        <Button x:ConnectionId='2' Name="logoutBtn" Width="350" Background="#FFA20000"                        >Logout</Button>
+                    </StackPanel>
+                </Grid>
+            </сontrol:ContentPane>
+        </сontrol:SlidePane.LeftPane>
+
+        <Grid Background="#2C397F">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="90"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <StackPanel Name="appbarBtnssp" Orientation="Horizontal" Background="#AEB6E2">
+                <Canvas Width="50"></Canvas>
+                <AppBarButton Name="newAbb" HorizontalAlignment="Stretch" Icon="Add" Label="New Entry" VerticalAlignment="Stretch" />
+                <AppBarButton Name="editAbb" HorizontalAlignment="Stretch" Icon="Edit" Label="Edit" VerticalAlignment="Stretch"/>
+                <AppBarButton Name="cpyUserAbb" HorizontalAlignment="Stretch" Icon="Copy" Label="Copy User" VerticalAlignment="Stretch"/>
+                <AppBarButton Name="cpyPassAbb" HorizontalAlignment="Stretch" Icon="Copy" Label="Copy Password" VerticalAlignment="Stretch"/>
+                <AppBarButton Name="refreshAbb" HorizontalAlignment="Stretch" Icon="Refresh" Label="Refresh Data" VerticalAlignment="Stretch"/>
+
+            </StackPanel>
+            <ListView x:ConnectionId='3' Name="userEntrieslv" Grid.Row="1"                                          >
+                <ListBoxItem>Item One</ListBoxItem>
+                <ListBoxItem>Item Two</ListBoxItem>
+            </ListView>
+
+            <!--"Modal Dialog" type thing for NEW and EDIT entry-->
+            <StackPanel Name="modalDialogNE" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Visibility="Collapsed" Background="{ThemeResource FlipViewButtonPressedForegroundThemeBrush}" >
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="300"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Vertical">
+                        <TextBlock Text="Edit Entry" FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Margin="0 5 0 0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Text="Title:" RequestedTheme="Light" FontSize="12"/>
+                        <TextBox Name="titleBox" Width="420" RequestedTheme="Light"/>
+                        <TextBlock Text="User Name:" RequestedTheme="Light" FontSize="12"/>
+                        <TextBox Name="userNameBox" Width="420" RequestedTheme="Light"/>
+                        <TextBlock Text="Password:" RequestedTheme="Light" FontSize="12"/>
+                        <PasswordBox Name="passwordBox1" Width="420" RequestedTheme="Light"/>
+                        <TextBlock Text="Repeat:" RequestedTheme="Light" FontSize="12"/>
+                        <PasswordBox Name="passwordBox2" Width="420" RequestedTheme="Light" />
+                        
+                            
+                        <TextBlock Text="Note:" RequestedTheme="Light" FontSize="12" Margin="0 10 0 0"/>
+                        <RichEditBox RequestedTheme="Light" Height="82"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0 14 0 0">
+                        <Button Name="saveBtn" Content="Save" Width="420" Background="#FF0559D3" RequestedTheme="Light" Foreground="White" />
+                        <Button x:ConnectionId='5' Name="cancelBtn" Content="Cancel" Width="420" Background="#FF726E66"                         RequestedTheme="Light" Foreground="White"/>
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+
+            <!--"Modal Dialog" type thing for ACCOUNT SETTINGS-->
+            <StackPanel Name="modalDialogAS" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" Visibility="Collapsed" Background="{ThemeResource FlipViewButtonPressedForegroundThemeBrush}" >
+                <Grid Margin="5">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40"/>
+                        <RowDefinition Height="250"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Vertical">
+                        <TextBlock Text="Account Settings" FontSize="28" VerticalAlignment="Center" HorizontalAlignment="Center" Foreground="Black" Margin="0 5 0 0"/>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1">
+                        <TextBlock Text="User Name:" RequestedTheme="Light" FontSize="12"/>
+                        <TextBox Name="userNameBoxAS" Width="420" RequestedTheme="Light"/>
+                        <TextBlock Text="Password:" RequestedTheme="Light" FontSize="12"/>
+                        <PasswordBox Name="passwordBox1AS" Width="420" RequestedTheme="Light"/>
+                        <TextBlock Text="Repeat:" RequestedTheme="Light" FontSize="12"/>
+                        <PasswordBox Name="passwordBox2AS" Width="420" RequestedTheme="Light" />
+                        <!--Certificate Stuff-->
+                        <TextBlock Text="Certificate:" RequestedTheme="Light" FontSize="12" Margin="0 10 0 0"/>
+                        <StackPanel Orientation="Horizontal">
+                            <Button Name="setCertBtn" Content="Choose" Width="84" Background="#FF726E66" RequestedTheme="Light" Foreground="White"/>
+                            <Button Name="removeCertBtn" Content="Remove" Width="89" Background="#FF726E66" RequestedTheme="Light" Foreground="White"/>
+                        </StackPanel>
+
+                        <StackPanel Orientation="Horizontal" Name="certDataGrid">
+                            <Image Source="Assets/certificate_64.png" Height="48" Width="48" />
+                            <StackPanel Orientation="Horizontal">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="14"/>
+                                        <RowDefinition Height="14"/>
+                                        <RowDefinition Height="14"/>
+                                    </Grid.RowDefinitions>
+
+                                    <StackPanel Orientation="Horizontal" Grid.Row="0">
+                                        <TextBlock Text="Issued to:" VerticalAlignment="Top" FontSize="12" RequestedTheme="Light"  Height="14" />
+                                        <TextBlock Name="issuedToTb" Text=" CAcert Wot User" VerticalAlignment="Top" FontSize="12" RequestedTheme="Light" Height="14"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="1">
+                                        <TextBlock Text="Issued by:" VerticalAlignment="Top" FontSize="12" RequestedTheme="Light"  Height="14" />
+                                        <TextBlock Name="issuedByTb" Text=" CAcert" VerticalAlignment="Top" FontSize="12" RequestedTheme="Light" Height="14"/>
+                                    </StackPanel>
+                                    <StackPanel Orientation="Horizontal" Grid.Row="2">
+                                        <TextBlock Text="Valid from" VerticalAlignment="Top" FontSize="12" RequestedTheme="Light"  Height="14" />
+                                        <TextBlock Name="dateCertFromTb" Text=" 31/12/2015" VerticalAlignment="Top" FontSize="12" RequestedTheme="Light" Height="14"/>
+                                        <TextBlock Text=" to " VerticalAlignment="Top" FontSize="12" RequestedTheme="Light" Height="14"/>
+                                        <TextBlock Name="dateCertToTb" Text=" 31/12/2015" VerticalAlignment="Top" FontSize="12" RequestedTheme="Light" Height="14"/>
+                                    </StackPanel>
+                                </Grid>
+
+                            </StackPanel>
+                        </StackPanel>
+                        <!--//-->
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0 14 0 0">
+                        <Button Name="saveBtnAS" Content="Save" Width="420" Background="#FF0559D3" RequestedTheme="Light" Foreground="White" />
+                        <Button x:ConnectionId='4' Name="cancelBtnAS" Content="Cancel" Width="420" Background="#FF726E66"                           RequestedTheme="Light" Foreground="White" />
+                    </StackPanel>
+                </Grid>
+            </StackPanel>
+
+        </Grid>
+    </сontrol:SlidePane>
+
+
+</Page>
+

@@ -1,6 +1,5 @@
 <XamlCompilerSaveState>
   <ReferenceAssemblyList>
-    <LocalAssembly PathName="d:\dropbox\estg\si\sigdp\gdp\gdpclient\obj\debug\intermediatexaml\gdpclient.exe" HashGuid="02a7d1b3-3b05-8835-e1f6-33ca44782234" />
-    <ReferenceAssembly PathName="d:\dropbox\estg\si\sigdp\gdp\packages\slidepane.1.1\lib\netcore451\slidepanecontrol.dll" HashGuid="03a043e1-fc9d-8049-b588-35d0438cee7f" />
+    <ReferenceAssembly PathName="c:\users\sam71\source\repos\sigdp\gdp\packages\slidepane.1.1\lib\netcore451\slidepanecontrol.dll" HashGuid="03a043e1-fc9d-8049-b588-35d0438cee7f" />
   </ReferenceAssemblyList>
 </XamlCompilerSaveState>
