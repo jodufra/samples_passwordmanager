@@ -27,20 +27,20 @@ namespace GDPWebApi.Controllers
             public Boolean RememberMe { get; set; }
         }
         [HttpPost, Route("Login")]
-        public HttpResponseMessage Login([FromUri] AuthLoginIM signin)
+        public HttpResponseMessage Login([FromUri] AuthLoginIM login)
         {
-            if (signin == null || String.IsNullOrEmpty(signin.Username) || String.IsNullOrEmpty(signin.Password))
+            if (login == null || String.IsNullOrEmpty(login.Username) || String.IsNullOrEmpty(login.Password))
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Username and password are missing.");
 
-            var user = (new UserRepository()).Get(signin.Username);
+            var user = (new UserRepository()).Get(login.Username);
 
             if (user == null)
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid username");
 
-            if (user.Password != GDPLibrary.Utils.Security.GetSHA256SaltyHashFromTastlessHash(signin.Password, user.Salt))
+            if (user.Password != GDPLibrary.Utils.Security.GetSHA256SaltyHashFromTastlessHash(login.Password, user.Salt))
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid password");
 
-            Security.Session.SignIn(user, signin.RememberMe);
+            Security.Session.SignIn(user, login.RememberMe);
 
             return Request.CreateResponse(HttpStatusCode.OK, user);
         }
