@@ -122,6 +122,18 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="CDEditEntry.xaml.cs">
+      <DependentUpon>CDEditEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CDNewEntry.xaml.cs">
+      <DependentUpon>CDNewEntry.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CDServiceConn.xaml.cs">
+      <DependentUpon>CDServiceConn.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="CDUserSettings.xaml.cs">
+      <DependentUpon>CDUserSettings.xaml</DependentUpon>
+    </Compile>
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -162,6 +174,22 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Page Include="CDEditEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CDNewEntry.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CDServiceConn.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="CDUserSettings.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="LoginPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

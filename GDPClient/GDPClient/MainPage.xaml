@@ -7,121 +7,47 @@
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <RelativePanel Background="{ThemeResource ApplicationPageBackgroundThemeBrush}">
-        <Button Name="SplitViewButton" Background="Transparent" Padding="0,-6" Margin="12" Click="SplitViewButton_Click">
-            <FontIcon FontFamily="{ThemeResource ContentControlThemeFontFamily}" Glyph="&#x2261;" FontSize="32" Margin="0,-8,0,0"/>
-        </Button>
-        <TextBlock Style="{ThemeResource SubheaderTextBlockStyle}" Text="Responsive Techniques" 
-                   RelativePanel.RightOf="SplitViewButton" />
-        <SplitView x:Name="MySplitView" PaneBackground="{ThemeResource ApplicationPageBackgroundThemeBrush}" OpenPaneLength="200"
-                   RelativePanel.AlignRightWithPanel="True" RelativePanel.AlignLeftWithPanel="True" RelativePanel.Below="SplitViewButton">
-            <SplitView.Pane>
-                <RelativePanel>
-                    <!-- Static Relativepanel, substitutes nested stackpanel or grid with rows/columns for this simple scenario -->
-                    <AppBarButton x:Name="BackgroundButton" Icon="Pictures" IsCompact="True" />
-                    <TextBlock Text="Background"  
-                               RelativePanel.RightOf="BackgroundButton" RelativePanel.AlignVerticalCenterWith="BackgroundButton"/>
-                    <AppBarButton x:Name="LockButton" Icon="SetLockScreen" 
-                                  RelativePanel.Below="BackgroundButton" IsCompact="True" />
-                    <TextBlock Text="Lock screen"  
-                               RelativePanel.RightOf="LockButton" RelativePanel.Below="BackgroundButton"  RelativePanel.AlignVerticalCenterWith="LockButton"/>
-                    <AppBarButton x:Name="CameraButton" Icon="Camera" 
-                                  RelativePanel.Below="LockButton" IsCompact="True"/>
-                    <TextBlock Text="Camera"  
-                               RelativePanel.RightOf="CameraButton" RelativePanel.Below="LockButton" RelativePanel.AlignVerticalCenterWith="CameraButton"/>
-                </RelativePanel>
-            </SplitView.Pane>
-            <ScrollViewer VerticalScrollBarVisibility="Auto" VerticalScrollMode="Auto" HorizontalScrollBarVisibility="Disabled" HorizontalScrollMode="Disabled">
-                <RelativePanel>
-                    <!-- Dynamic RelativePanel for composite content where UIElements change positions based on available space 
-                         Note that the constraints that change are not declared inline here but declared within the VisualStates below where they apply.
-                         This is a useful technique for RelativePanel since VisualStates automatically take care of unsetting properties when leaving a particular VisualState-->
-                    <TextBlock Margin="5" x:Name="PreviewLabel" Text="Preview" Style="{ThemeResource BodyTextBlockStyle}" />
-                    <Image Margin="5" x:Name="BackgroundImage" Source="Assets/Background.png" Stretch="None" Height="190" Width="360"
-                       RelativePanel.Below="PreviewLabel"/>
-                    <ComboBox Margin="5" x:Name="BackgroundCombo" Header="Background" SelectedIndex="0">
-                        <ComboBoxItem>Picture</ComboBoxItem>
-                        <ComboBoxItem>Color</ComboBoxItem>
-                        <ComboBoxItem>Slide show</ComboBoxItem>
-                    </ComboBox>
-                    <TextBlock Margin="5" x:Name="PictureLabel" Text="Choose your picture" Style="{ThemeResource BodyTextBlockStyle}" />
-                    <StackPanel Margin="5" x:Name="PicturesPanel" Orientation="Horizontal" RelativePanel.Below="PictureLabel">
-                        <Image Margin="5" Height="93" Width="93" Source="Assets/Background.png" Stretch="UniformToFill" />
-                        <Image Margin="5" Height="93" Width="93" Source="Assets/Background2.png" Stretch="UniformToFill" />
-                        <Image Margin="5" Height="93" Width="93" Source="Assets/Background3.png" Stretch="UniformToFill" />
-                        <Image Margin="5" Height="93" Width="93" Source="Assets/Background4.png" Stretch="UniformToFill" />
+    <SplitView Name="MySplitView" OpenPaneLength="200" IsPaneOpen="False" DisplayMode="Overlay" Background="#2C397F">
+        <SplitView.Pane>
+            <StackPanel >
+                <ListView x:Name="listView" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" >
+                    <ListViewItem Content="All" IsSelected="True"/>
+                    <ListViewItem Content="Windows" Margin="20 0 0 0"/>
+                    <ListViewItem Content="Network" Margin="20 0 0 0"/>
+                    <ListViewItem Content="Internet" Margin="20 0 0 0"/>
+                    <ListViewItem Content="Email" Margin="20 0 0 0"/>
+                    <ListViewItem Content="Homebanking" Margin="20 0 0 0"/>
+                </ListView>
+                <Button Name="settingsBtn" Width="200" Background="#FF5977FF" Margin="0 20 0 0" Click="settingsBtn_Click">Account Settings</Button>
+                <Button Name="logoutBtn" Width="200" Background="#FFA20000" >Logout</Button>
+
+            </StackPanel>
+        </SplitView.Pane>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="60" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
+            <StackPanel Orientation="Horizontal">
+                <Button Background="White" Click="SplitViewButton_Click" Margin="10">
+                    <StackPanel>
+                        <Rectangle Height="3" Width="20" Fill="Black" />
+                        <Rectangle Margin="0,5" Height="3" Width="20" Fill="Black" />
+                        <Rectangle Height="3" Width="20" Fill="Black" />
                     </StackPanel>
-                    <Button Margin="5" x:Name="BrowseButton" Content="Browse" RelativePanel.Below="PicturesPanel" />
-                    <ComboBox Margin="5" x:Name="FitCombo" Header="Choose a fit" SelectedIndex="0">
-                        <ComboBoxItem>Fill</ComboBoxItem>
-                        <ComboBoxItem>Fit</ComboBoxItem>
-                        <ComboBoxItem>Stretch</ComboBoxItem>
-                        <ComboBoxItem>Tile</ComboBoxItem>
-                        <ComboBoxItem>Center</ComboBoxItem>
-                        <ComboBoxItem>Span</ComboBoxItem>
-                    </ComboBox>
-                    <TextBlock x:Name="Instructions" Margin="5" TextWrapping="Wrap" RelativePanel.Below="BrowseButton">
-                        The controls on this page don't perform any actions and are not intended to be interacted with, they are for illustrative purposes only.
-                        <LineBreak/><LineBreak/>
-                        To use this sample, simply resize the main window and observe how the controls on the page adapt to the change in size.
-                    </TextBlock>
-                </RelativePanel>
-            </ScrollViewer>
-        </SplitView>
-        <!-- Responsive VisualStates -->
-        <VisualStateManager.VisualStateGroups>
-            <VisualStateGroup>
-                <VisualState>
-                    <!-- VisualState to be triggered when window width is >=720 effective pixels -->
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="720" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!-- Widest possible layout moves some elements around to optimize for more available width 
-                        and keeps SplitView pane always showing inline -->
-                        <Setter Target="MySplitView.DisplayMode" Value="Inline" />
-                        <Setter Target="MySplitView.IsPaneOpen" Value="True" />
-                        <Setter Target="BackgroundCombo.(RelativePanel.RightOf)" Value="BackgroundImage" />
-                        <Setter Target="BackgroundCombo.(RelativePanel.AlignTopWith)" Value="BackgroundImage" />
-                        <Setter Target="BackgroundCombo.(RelativePanel.AlignLeftWith)" Value="FitCombo" />
-                        <Setter Target="PictureLabel.(RelativePanel.Below)" Value="BackgroundImage" />
-                        <Setter Target="FitCombo.(RelativePanel.RightOf)" Value="PicturesPanel" />
-                        <Setter Target="FitCombo.(RelativePanel.AlignTopWith)" Value="PictureLabel" />
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState>
-                    <!-- VisualState to be triggered when window width is >=548 and <720 effective pixels -->
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="548" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!-- For intermediate window widths as well as most phones on landscape orientation, 
-                        this state keeps primary layout narrow while showing the splitview pane to take advantage of more available width than narrow layout -->
-                        <Setter Target="MySplitView.DisplayMode" Value="Inline" />
-                        <Setter Target="MySplitView.IsPaneOpen" Value="True" />
-                        <Setter Target="BackgroundCombo.(RelativePanel.Below)" Value="BackgroundImage" />
-                        <Setter Target="PictureLabel.(RelativePanel.Below)" Value="BackgroundCombo" />
-                        <Setter Target="FitCombo.(RelativePanel.Below)" Value="BrowseButton" />
-                        <Setter Target="Instructions.(RelativePanel.Below)" Value="FitCombo"/>
-                    </VisualState.Setters>
-                </VisualState>
-                <VisualState>
-                    <!-- VisualState to be triggered when window width is >=0 and <548 effective pixels -->
-                    <VisualState.StateTriggers>
-                        <AdaptiveTrigger MinWindowWidth="0" />
-                    </VisualState.StateTriggers>
-                    <VisualState.Setters>
-                        <!-- For the most narrow windows and phones in portrait orientation, this state collapses the SplitView pane into overlay mode
-                        and adds dynamic RelativePanel constraints that puts all elements stacked below each other -->
-                        <Setter Target="MySplitView.DisplayMode" Value="Overlay" />
-                        <Setter Target="MySplitView.IsPaneOpen" Value="False" />
-                        <Setter Target="BackgroundCombo.(RelativePanel.Below)" Value="BackgroundImage" />
-                        <Setter Target="PictureLabel.(RelativePanel.Below)" Value="BackgroundCombo" />
-                        <Setter Target="FitCombo.(RelativePanel.Below)" Value="BrowseButton" />
-                        <Setter Target="Instructions.(RelativePanel.Below)" Value="FitCombo"/>
-                    </VisualState.Setters>
-                </VisualState>
-            </VisualStateGroup>
-        </VisualStateManager.VisualStateGroups>
-    </RelativePanel>
+                </Button>
+                <AppBarButton x:Name="newEntryAbb" HorizontalAlignment="Stretch" Icon="Accept" Label="New Entry" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="newEntryAbb_Click"/>
+                <AppBarButton x:Name="editEntryAbb" HorizontalAlignment="Stretch" Icon="Edit" Label="Edit" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="editEntryAbb_Click"/>
+                <AppBarButton x:Name="removeEntryAbb" HorizontalAlignment="Stretch" Icon="Cancel" Label="Remove" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
+                <AppBarButton x:Name="copyUserAbb" HorizontalAlignment="Stretch" Icon="Copy" Label="Copy User" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
+                <AppBarButton x:Name="copyPasswordAbb" HorizontalAlignment="Stretch" Icon="Copy" Label="Copy Pass" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
+                <AppBarButton x:Name="refreshAbb" HorizontalAlignment="Stretch" Icon="Refresh" Label="Refresh" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
+            </StackPanel>
+            
+            <ListView x:Name="listView1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" DoubleTapped="listView1_DoubleTapped" >
+                <ListViewItem Content="id:1    |    Username: sam7.1@hotmail.com   | Password: *******    |   Nota: ASd asd sadasdasdasd"/>
+            </ListView>
+
+        </Grid>
+    </SplitView>
 </Page>

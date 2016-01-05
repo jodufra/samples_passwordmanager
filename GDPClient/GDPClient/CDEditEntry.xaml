@@ -1,0 +1,34 @@
+﻿<ContentDialog
+    x:Class="GDPClient.CDEditEntry"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:GDPClient"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d"
+    Title="Edit Entry"
+    PrimaryButtonText="Save"
+    SecondaryButtonText="Cancel"
+    PrimaryButtonClick="ContentDialog_PrimaryButtonClick"
+    SecondaryButtonClick="ContentDialog_SecondaryButtonClick">
+
+
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+
+        <StackPanel Grid.Row="0">
+            <TextBlock Text="Title:" FontSize="12"/>
+            <TextBox Name="titleBox"  />
+            <TextBlock Text="User Name:" FontSize="12"/>
+            <TextBox Name="userNameBox" />
+            <TextBlock Text="Password:" FontSize="12"/>
+            <PasswordBox Name="passwordBox1"  />
+            <TextBlock Text="Repeat:" FontSize="12"/>
+            <PasswordBox Name="passwordBox2" />
+            <TextBlock Text="Note:" FontSize="12" Margin="0 10 0 0"/>
+            <RichEditBox  Height="82"/>
+        </StackPanel>
+    </Grid>
+</ContentDialog>

@@ -32,5 +32,46 @@ namespace GDPClient
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
+        private async void listView1_DoubleTapped(object sender, DoubleTappedRoutedEventArgs e)
+        {
+            CDEditEntry cdee = new CDEditEntry();
+            await cdee.ShowAsync();
+            
+            /*if (cdee == CDEditEntry.)
+            {
+
+            }*/
+            /*if (signInDialog.Result == SignInResult.SignInOK)
+            {
+                // Sign in was successful.
+            }
+            else if (signInDialog.Result == SignInResult.SignInFail)
+            {
+                // Sign in failed.
+            }
+            else if (signInDialog.Result == SignInResult.SignInCancel)
+            {
+                // Sign in was cancelled by the user.
+            }*/
+        }
+
+        private async void settingsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            CDUserSettings cdus = new CDUserSettings();
+            await cdus.ShowAsync();
+        }
+
+
+        private async void newEntryAbb_Click(object sender, RoutedEventArgs e)
+        {
+            CDNewEntry cdne = new CDNewEntry();
+            await cdne.ShowAsync();
+        }
+
+        private async void editEntryAbb_Click(object sender, RoutedEventArgs e)
+        {
+            CDEditEntry cdee = new CDEditEntry();
+            await cdee.ShowAsync();
+        }
     }
 }

@@ -14,6 +14,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using System.Diagnostics;
 
 namespace GDPClient
 {
@@ -26,6 +27,8 @@ namespace GDPClient
         /// Initializes the singleton application object.  This is the first line of authored code
         /// executed, and as such is the logical equivalent of main() or WinMain().
         /// </summary>
+        public static Windows.Storage.ApplicationDataContainer LocalSettings { get; set; }
+        public static String ServiceConn = "serviceConn";
         public App()
         {
             Microsoft.ApplicationInsights.WindowsAppInitializer.InitializeAsync(
@@ -33,6 +36,19 @@ namespace GDPClient
                 Microsoft.ApplicationInsights.WindowsCollectors.Session);
             this.InitializeComponent();
             this.Suspending += OnSuspending;
+
+            LocalSettings = Windows.Storage.ApplicationData.Current.LocalSettings;
+         
+            //Debug.WriteLine("--->" + localSettings.Values.Count());
+            if (LocalSettings.Values.Count() == 0)
+            {
+                settingsInit();
+            }
+        }
+
+        private void settingsInit()
+        {
+            LocalSettings.Values[ServiceConn] = "http://localhost:14006/api/";
         }
 
         /// <summary>
