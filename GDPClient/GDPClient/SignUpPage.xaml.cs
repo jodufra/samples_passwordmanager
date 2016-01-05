@@ -36,6 +36,16 @@ namespace GDPClient
         private void okBtn_Click(object sender, RoutedEventArgs e)
         {
             //Save user on service
+            //check service
+                //ok
+                    //fazer verificacoes
+                        //encript pass
+                        //criar user XML? e enviar encriptado 
+                        //success
+                   //da merda
+                        //show errors     
+                //service fucked
+                    //errors
         }
 
         private void cancelBtn_Click(object sender, RoutedEventArgs e)

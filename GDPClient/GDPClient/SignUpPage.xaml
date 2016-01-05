@@ -12,7 +12,7 @@
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
 
-        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" MinWidth="400">
+        <StackPanel Grid.Row="0" HorizontalAlignment="Center" VerticalAlignment="Center" Orientation="Vertical" MinWidth="340" MaxWidth="420">
             <Grid Name="innerGrid">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="220"/>
@@ -36,7 +36,7 @@
 
                     <!--Certificate Stuff-->
                     <StackPanel Orientation="Horizontal">
-                        <ComboBox Name="certificatesListCB" MinWidth="250" MaxWidth="200" SelectionChanged="certificatesListCB_SelectionChanged"/>
+                        <ComboBox Name="certificatesListCB"  SelectionChanged="certificatesListCB_SelectionChanged" Width="305"/>
                         <Button x:Name="refreshCertsBtn"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Content="&#xE72C;" ToolTipService.ToolTip="Refresh certificates from store" Click="refreshCertsBtn_Click"/>
                     </StackPanel>
 
@@ -72,8 +72,8 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0 14 0 0">
-                    <Button Name="okBtn" Content="OK"  Background="#FF0559D3" Width="400" Click="okBtn_Click" />
-                    <Button Name="cancelBtn" Content="Cancel" Background="#FF726E66" Width="400" Click="cancelBtn_Click"/>
+                    <Button Name="okBtn" Content="OK"  Background="#FF0559D3"  Click="okBtn_Click" Width="340" />
+                    <Button Name="cancelBtn" Content="Cancel" Background="#FF726E66" Click="cancelBtn_Click" Width="340"/>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                         <TextBlock Text="Made with " VerticalAlignment="Center" Margin="5 0 5 0"/>
                         <TextBlock FontFamily="Segoe UI Symbol" Text="&#xE007;" FontSize="30" Foreground="Red"/>
