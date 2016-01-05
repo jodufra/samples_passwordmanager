@@ -1,5 +1,4 @@
-﻿using GDPLibrary.Utilities;
-using GDPLibrary.Utils;
+﻿using GDPLibrary.Utils;
 using System;
 using System.Collections.Generic;
 using System.Linq;

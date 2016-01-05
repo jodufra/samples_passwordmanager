@@ -12,6 +12,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDPClient", "GDPClient\GDPC
 		{02B238E2-987F-4562-85FF-1CD433AC4934} = {02B238E2-987F-4562-85FF-1CD433AC4934}
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GDPWebApi", "GDPWebApi\GDPWebApi.csproj", "{FE3C11E4-7FF3-4D77-B9CA-2589682D6D2B}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -68,6 +70,16 @@ Global
 		{ADDCBAE6-D6C1-4AC5-B63C-4FE7FA73D13E}.Release|x86.ActiveCfg = Release|x86
 		{ADDCBAE6-D6C1-4AC5-B63C-4FE7FA73D13E}.Release|x86.Build.0 = Release|x86
 		{ADDCBAE6-D6C1-4AC5-B63C-4FE7FA73D13E}.Release|x86.Deploy.0 = Release|x86
+		{FE3C11E4-7FF3-4D77-B9CA-2589682D6D2B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{FE3C11E4-7FF3-4D77-B9CA-2589682D6D2B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{FE3C11E4-7FF3-4D77-B9CA-2589682D6D2B}.Debug|ARM.ActiveCfg = Debug|Any CPU
+		{FE3C11E4-7FF3-4D77-B9CA-2589682D6D2B}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{FE3C11E4-7FF3-4D77-B9CA-2589682D6D2B}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{FE3C11E4-7FF3-4D77-B9CA-2589682D6D2B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{FE3C11E4-7FF3-4D77-B9CA-2589682D6D2B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{FE3C11E4-7FF3-4D77-B9CA-2589682D6D2B}.Release|ARM.ActiveCfg = Release|Any CPU
+		{FE3C11E4-7FF3-4D77-B9CA-2589682D6D2B}.Release|x64.ActiveCfg = Release|Any CPU
+		{FE3C11E4-7FF3-4D77-B9CA-2589682D6D2B}.Release|x86.ActiveCfg = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

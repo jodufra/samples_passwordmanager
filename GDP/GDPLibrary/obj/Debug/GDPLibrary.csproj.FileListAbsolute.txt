@@ -10,3 +10,4 @@ D:\Dropbox\ESTG\SI\sigdp\GDP\GDPLibrary\bin\Debug\GDPLibrary.pdb
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPLibrary\bin\Debug\SlideView.Library.dll
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPLibrary\obj\Debug\GDPLibrary.dll
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPLibrary\obj\Debug\GDPLibrary.pdb
+D:\Dropbox\ESTG\SI\sigdp\GDP\GDPLibrary\obj\Debug\GDPLibrary.csprojResolveAssemblyReference.cache
