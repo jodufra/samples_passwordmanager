@@ -32,12 +32,76 @@ namespace GDPWebApi.Repositories
 
         public List<String> Save(Record record)
         {
-            throw new NotImplementedException();
+            List<String> errors = new List<string>();
+
+            if (record.IdCategory == null)
+                errors.Add("Category is required");
+
+            if (record.IdUser == null)
+                errors.Add("User is required");
+
+            if (!errors.Any())
+            {
+                if (record.IdRecord == 0)
+                {
+                    using (var conn = OpenConnection())
+                    {
+                        var query = "INSERT INTO \"Record\" (IdCategory,IdUser,Entry) " +
+                                    "VALUES (@IdCategory,@IdUser,@Entry);";
+                        try
+                        {
+                            SqlMapper.Query(conn, query, new
+                            {
+                                IdCategory = record.IdCategory,
+                                IdUser = User.IdUser,
+                                Entry = record.Entry
+                            }, null, true, null, null).SingleOrDefault();
+                        }
+                        catch
+                        {
+                            errors.Add("Unexpected error");
+                        }
+                    }
+                }
+                else
+                {
+                    using (var conn = OpenConnection())
+                    {
+                        var query = "UPDATE \"Record\" " +
+                                    "SET IdCategory=@IdCategory,Entry=@Entry " +
+                                    "WHERE IdRecord=@IdRecord AND IdUser = @IdUser;";
+                        try
+                        {
+                            SqlMapper.Query(conn, query, new
+                            {
+                                IdCategory = record.IdCategory,
+                                Entry = record.Entry,
+                                IdRecord = record.IdRecord,
+                                IdUser = User.IdUser
+                            }, null, true, null, null).SingleOrDefault();
+                        }
+                        catch
+                        {
+                            errors.Add("Unexpected error");
+                        }
+                    }
+                }
+            }
+            return errors;
         }
 
         public void Remove(int idRecord)
         {
-            throw new NotImplementedException();
+            using (var conn = OpenConnection())
+            {
+                var query = "DELETE FROM \"Record\" " +
+                            "WHERE IdRecord=@IdRecord AND IdUser = @IdUser;";
+                SqlMapper.Query(conn, query, new
+                {
+                    IdRecord = idRecord,
+                    IdUser = User.IdUser
+                }, null, true, null, null).SingleOrDefault();
+            }
         }
 
     }

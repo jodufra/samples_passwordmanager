@@ -64,7 +64,6 @@ namespace GDPWebApi.Repositories
                     {
                         var query = "INSERT INTO \"User\" (Password,Token,Salt,Username,CertSubject,CertIssuer,CertThumbprint,CertSerialNumber,CertValidFrom,CertValidTo) " +
                                     "VALUES (@Password,@Token,@Salt,@Username,@CertSubject,@CertIssuer,@CertThumbprint,@CertSerialNumber,@CertValidFrom,@CertValidTo);";
-
                         try
                         {
                             SqlMapper.Query(conn, query, new

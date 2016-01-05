@@ -34,7 +34,7 @@ namespace GDPWebApi.HttpModules
             if (context.User != null && context.User.Identity.IsAuthenticated)
             {
                 user = (new UserRepository()).Get(Convert.ToInt32(context.User.Identity.Name));
-                if (user != null) HttpContext.Current.Items.Add(GDPWebApi.Security.Settings.UserCookieName, user);
+                if (user != null) HttpContext.Current.Items.Add(GDPWebApi.Security.Settings.ContextUserKey, user);
             }
         }
 
