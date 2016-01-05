@@ -17,7 +17,6 @@ D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\GDPService.pdb
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\Dapper.dll
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\GDPLibrary.dll
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\Newtonsoft.Json.dll
-D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\SlideView.Library.dll
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\GDPLibrary.pdb
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\Dapper.pdb
 D:\Dropbox\ESTG\SI\sigdp\GDP\GDPService\bin\Dapper.xml

@@ -10,6 +10,19 @@ namespace GDPLibrary.Utils
 {
     public class Security
     {
+        private static byte[] sharedSalt = Encoding.ASCII.GetBytes("v3rys01tys01t");
+
+        public static String GetSHA256SaltyPassword(String username, String password, out String salt)
+        {
+            salt = CreateSalt(username);
+            return GetSHA256SaltyHashFromTastlessHash(password, salt);
+        }
+
+        public static String GetSHA256SaltyHashFromTastlessHash(String input, String salt)
+        {
+            return GetSHA256Hash(input + salt + sharedSalt);
+        }
+
         public static String GetSHA256Hash(String input)
         {
             if (String.IsNullOrEmpty(input))
@@ -19,8 +32,6 @@ namespace GDPLibrary.Utils
             Byte[] encodedBytes = sha256.ComputeHash(originalBytes);
             return BitConverter.ToString(encodedBytes);
         }
-
-        private static byte[] _salt = Encoding.ASCII.GetBytes("v3rys01tys01t");
 
         public static byte[] EncryptAES(byte[] source, string publicKey)
         {
@@ -32,7 +43,7 @@ namespace GDPLibrary.Utils
             byte[] result = null; RijndaelManaged aesAlg = null;
             try
             {
-                Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(publicKey, _salt);
+                Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(publicKey, sharedSalt);
 
                 aesAlg = new RijndaelManaged();
                 aesAlg.Key = key.GetBytes(aesAlg.KeySize / 8);
@@ -75,7 +86,7 @@ namespace GDPLibrary.Utils
 
             try
             {
-                Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(publicKey, _salt);
+                Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(publicKey, sharedSalt);
 
                 using (MemoryStream msDecrypt = new MemoryStream(source))
                 {
@@ -103,6 +114,25 @@ namespace GDPLibrary.Utils
             return result;
         }
 
+        private static string CreateSalt(string s)
+        {
+            string str = s;
+            byte[] userBytes;
+            string salt;
+            userBytes = ASCIIEncoding.ASCII.GetBytes(str);
+            long XORED = 0x00;
+
+            foreach (int x in userBytes)
+                XORED = XORED ^ x;
+
+            Random rand = new Random(Convert.ToInt32(XORED));
+            salt = rand.Next().ToString();
+            salt += rand.Next().ToString();
+            salt += rand.Next().ToString();
+            salt += rand.Next().ToString();
+            return salt;
+        }
+
         private static byte[] ReadByteArray(Stream s)
         {
             byte[] rawLength = new byte[sizeof(int)];
@@ -118,6 +148,13 @@ namespace GDPLibrary.Utils
             }
 
             return buffer;
+        }
+
+        private static byte[] StringToByteArray(String s)
+        {
+            byte[] result = new byte[s.Length * sizeof(char)];
+            System.Buffer.BlockCopy(s.ToCharArray(), 0, result, 0, result.Length);
+            return result;
         }
     }
 }

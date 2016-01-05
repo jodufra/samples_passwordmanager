@@ -11,10 +11,23 @@ namespace GDPService
     [ServiceContract]
     public interface IGDPService
     {
+        // Users and Auth
         [OperationContract]
-        User BasicAuth(string username, string password);
+        User Login(string username, string password);
 
         [OperationContract]
+        User LoginWithCertificate();
+
+        [OperationContract]
+        List<String> RegisterUser(User user);
+
+        // Categories
+        [OperationContract]
         List<Category> GetCategories();
+
+        // Records
+        [OperationContract]
+        List<Record> GetRecords(String token);
+
     }
 }
