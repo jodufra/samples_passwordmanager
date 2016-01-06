@@ -62,7 +62,6 @@ namespace GDPClient
                     {
                         User user = JsonConvert.DeserializeObject<User>(await mReceived.Content.ReadAsStringAsync());
                         AppData.Instance.User = user;
-
                         Frame.Navigate(typeof(MainPage));
                     }
                     else
