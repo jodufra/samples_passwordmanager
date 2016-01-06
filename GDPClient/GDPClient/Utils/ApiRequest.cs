@@ -9,7 +9,7 @@ namespace GDPClient.Others
 {
     public static class ApiRequest
     {
-        public static async Task<HttpResponseMessage> MakeRequest(String url, HttpMethod method, String query)
+        public static async Task<HttpResponseMessage> MakeRequest(String url, HttpMethod method, String query = null)
         {
             var completeUrl = !String.IsNullOrEmpty(query) ? String.Join("?", url, query) : url;
             using (var httpClient = new HttpClient())

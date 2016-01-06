@@ -82,13 +82,8 @@ namespace GDPWebApi.Controllers
         {
             if (register == null)
                 return Request.CreateResponse(HttpStatusCode.BadRequest, "Username and password are missing.");
-
             var errors = (new UserRepository()).Save(register.Parse());
-
-            var response = new HttpMessagesResponse<String>();
-            response.Error = errors.Any();
-            response.Messages = response.Error ? errors : new List<String>() { "User registered with success." };
-            return Request.CreateResponse(response.Error ? HttpStatusCode.BadRequest : HttpStatusCode.OK, response);
+            return Request.CreateResponse(errors.Any() ? HttpStatusCode.BadRequest : HttpStatusCode.OK, errors.Any() ? errors : new List<String>() { "User registered with success." });
         }
 
         [Authorize]

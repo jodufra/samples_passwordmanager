@@ -43,45 +43,47 @@ namespace GDPClient
         {
             List<String> errors = new List<string>();
 
-            var model = new
+            var register = new
             {
-                register = new
-                {
-                    username = usernameBox.Text,
-                    password = passwordBox.Password,
-                    passwordConfirm = passwordConfirmBox.Password,
-                    certSubject = selectedCertificate.Subject,
-                    certIssuer = selectedCertificate.Issuer,
-                    certThumbprint = CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue())),
-                    certSerialNumber = CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.SerialNumber)),
-                    certValidFrom = selectedCertificate.ValidFrom.DateTime,
-                    certValidTo = selectedCertificate.ValidFrom.DateTime
-                }
+                username = usernameBox.Text,
+                password = passwordBox.Password,
+                passwordConfirm = passwordConfirmBox.Password,
+                certSubject = selectedCertificate == null ? null : selectedCertificate.Subject,
+                certIssuer = selectedCertificate == null ? null : selectedCertificate.Issuer,
+                certThumbprint = selectedCertificate == null ? null : CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue())),
+                certSerialNumber = selectedCertificate == null ? null : CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.SerialNumber)),
+                certValidFrom = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidFrom.DateTime,
+                certValidTo = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidTo.DateTime
             };
 
-            if (String.IsNullOrEmpty(model.register.username))
-                errors.Add("Username is required");
+            if (String.IsNullOrEmpty(register.username) || register.username.Length < 3)
+                errors.Add("Username is required and its length higher or equal to 3.");
 
-            if (String.IsNullOrEmpty(model.register.password))
-                errors.Add("Password is required");
-            else if (model.register.password != passwordConfirmBox.Password)
-                errors.Add("Passwords are not equal");
+            if (String.IsNullOrEmpty(register.password))
+                errors.Add("Password is required.");
+            else if (register.password != passwordConfirmBox.Password)
+                errors.Add("Passwords are not equal.");
 
             if (!errors.Any())
             {
                 try
                 {
                     var url = App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/register";
-                    HttpResponseMessage mReceived = await ApiRequest.MakeRequest(url, HttpMethod.Post, model.ToQueryString());
-                    errors.Add(JsonConvert.DeserializeObject<String>(await mReceived.Content.ReadAsStringAsync()));
+                    HttpResponseMessage mReceived = await ApiRequest.MakeRequest(url, HttpMethod.Post, register.ToQueryString("register"));
+                    errors.AddRange(JsonConvert.DeserializeObject<List<String>>(await mReceived.Content.ReadAsStringAsync()));
+                    if(mReceived.StatusCode == HttpStatusCode.Ok)
+                    {
+                        ShowErrorMsg(String.Join(Environment.NewLine, errors));
+                        Frame.Navigate(typeof(LoginPage));
+                    }
                     mReceived.Dispose();
                 }
                 catch
                 {
                     errors.Add("Unable to request the service!");
-                }   
+                }
             }
-            
+
             if (errors.Any())
                 ShowErrorMsg(String.Join(Environment.NewLine, errors));
         }

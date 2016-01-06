@@ -43,10 +43,10 @@ namespace GDPClient
         {
             String error = "";
             if (string.IsNullOrEmpty(usernameBox.Text) || usernameBox.Text.Length < 3)
-                error = "Invalid Username!" + Environment.NewLine;
+                error = "Username is required and its length higher or equal to 3." + Environment.NewLine;
 
             if (string.IsNullOrEmpty(passwordBox.Password))
-                error += "Invalid Password!";
+                error += "Password is required.";
 
             if (string.IsNullOrEmpty(error))
             {
@@ -55,7 +55,7 @@ namespace GDPClient
                     HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
                         App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/login",
                         HttpMethod.Post,
-                        (new { login = new { Username = usernameBox.Text, Password = passwordBox.Password } }).ToQueryString());
+                        (new { Username = usernameBox.Text, Password = passwordBox.Password }).ToQueryString("login"));
 
                     if (mReceived.IsSuccessStatusCode)
                     {
@@ -72,7 +72,7 @@ namespace GDPClient
                 }
                 catch
                 {
-                    error = "Unable to request the service!";
+                    error = "Unable to request the service.";
                 }
             }
 
