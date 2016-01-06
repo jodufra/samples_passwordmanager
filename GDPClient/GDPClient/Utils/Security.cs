@@ -80,6 +80,38 @@ namespace GDPLibrary.Utils
             }
         }
 
+        public static string Decrypt(string cipherString, string key)
+        {
+            try
+            {
+                // Get the MD5 key hash (you can as well use the binary of the key string)
+                var keyHash = GetMD5Hash(key);
+
+                // Create a buffer that contains the encoded message to be decrypted.
+                IBuffer toDecryptBuffer = CryptographicBuffer.DecodeFromBase64String(cipherString);
+
+                // Open a symmetric algorithm provider for the specified algorithm.
+                SymmetricKeyAlgorithmProvider aes = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesEcbPkcs7);
+
+                // Create a symmetric key.
+                var symetricKey = aes.CreateSymmetricKey(keyHash);
+
+                var buffDecrypted = CryptographicEngine.Decrypt(symetricKey, toDecryptBuffer, null);
+
+                string strDecrypted = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf8, buffDecrypted);
+
+                return strDecrypted;
+            }
+            catch (Exception ex)
+            {
+                // MetroEventSource.Log.Error(ex.Message);
+                //throw;
+                return "";
+            }
+        }
+
+        //----
+
         public static byte[] EncryptAES(byte[] source, string publicKey)
         {
             if (source == null || source.Length == 0)
