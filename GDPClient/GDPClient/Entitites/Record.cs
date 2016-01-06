@@ -5,7 +5,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GDPLibrary.Entities
+namespace Entities
 {
     [DataContract]
     public class Record
@@ -33,7 +33,7 @@ namespace GDPLibrary.Entities
             if (entry == null || entry.Length == 0)
                 throw new Exception("Null or empty entries cant be parsed.");
 
-            return parsedEntry ?? (parsedEntry = GDPLibrary.Entities.Entry.Parse(entry, user));
+            return parsedEntry ?? (parsedEntry = Entities.Entry.Parse(entry, user));
         }
 
         public void CryptEntry(User user)
@@ -44,7 +44,7 @@ namespace GDPLibrary.Entities
             if (parsedEntry == null)
                 throw new Exception("Null ParsedEntry cant be crypted.");
 
-            entry = GDPLibrary.Entities.Entry.Crypt(parsedEntry, user);
+            entry = Entities.Entry.Crypt(parsedEntry, user);
         }
     }
 }

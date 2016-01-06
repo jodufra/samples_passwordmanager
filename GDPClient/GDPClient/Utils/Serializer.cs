@@ -6,7 +6,7 @@ using System.Runtime.Serialization;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace GDPLibrary.Utils
+namespace Utils
 {
     public static class Serializer
     {

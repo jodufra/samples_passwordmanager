@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 using Windows.Storage.Streams;
 using System.Runtime.InteropServices.WindowsRuntime;
 
-namespace GDPLibrary.Utils
+namespace Utils
 {
     public class Security
     {
@@ -49,7 +49,7 @@ namespace GDPLibrary.Utils
             return buffHash;
         }
 
-        public static string EncryptAES(string source, string publicKey)
+        public static byte[] EncryptAES(byte[] source, string publicKey)
         {
             if (source == null || source.Length == 0)
                 throw new ArgumentNullException("source");
@@ -58,139 +58,35 @@ namespace GDPLibrary.Utils
             try
             {
                 var keyHash = GetMD5Hash(publicKey);
-                var toDecryptBuffer = CryptographicBuffer.ConvertStringToBinary(source, BinaryStringEncoding.Utf8);
+                var toDecryptBuffer = CryptographicBuffer.DecodeFromBase64String((String)Serializer.FromByteArray(source, typeof(String)));
                 var aes = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesEcbPkcs7);
-                // Create a symmetric key.
                 var symetricKey = aes.CreateSymmetricKey(keyHash);
-                // The input key must be securely shared between the sender of the cryptic message
-                // and the recipient. The initialization vector must also be shared but does not
-                // need to be shared in a secure manner. If the sender encodes a message string
-                // to a buffer, the binary encoding method must also be shared with the recipient.
                 var buffEncrypted = CryptographicEngine.Encrypt(symetricKey, toDecryptBuffer, null);
-                // Convert the encrypted buffer to a string (for display).
-                // We are using Base64 to convert bytes to string since you might get unmatched characters
-                // in the encrypted buffer that we cannot convert to string with UTF8.
                 var strEncrypted = CryptographicBuffer.EncodeToBase64String(buffEncrypted);
-                
-                return strEncrypted;
+                return Serializer.ToByteArray(strEncrypted);
             }
             catch (Exception ex)
             {
-                return "";
+                return null;
             }
-        }
-
-        public static string Decrypt(string cipherString, string key)
-        {
-            try
-            {
-                // Get the MD5 key hash (you can as well use the binary of the key string)
-                var keyHash = GetMD5Hash(key);
-
-                // Create a buffer that contains the encoded message to be decrypted.
-                IBuffer toDecryptBuffer = CryptographicBuffer.DecodeFromBase64String(cipherString);
-
-                // Open a symmetric algorithm provider for the specified algorithm.
-                SymmetricKeyAlgorithmProvider aes = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesEcbPkcs7);
-
-                // Create a symmetric key.
-                var symetricKey = aes.CreateSymmetricKey(keyHash);
-
-                var buffDecrypted = CryptographicEngine.Decrypt(symetricKey, toDecryptBuffer, null);
-
-                string strDecrypted = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf8, buffDecrypted);
-
-                return strDecrypted;
-            }
-            catch (Exception ex)
-            {
-                // MetroEventSource.Log.Error(ex.Message);
-                //throw;
-                return "";
-            }
-        }
-
-        //----
-
-        public static byte[] EncryptAES(byte[] source, string publicKey)
-        {
-            if (source == null || source.Length == 0)
-                throw new ArgumentNullException("source");
-            if (string.IsNullOrEmpty(publicKey))
-                throw new ArgumentNullException("publicKey");
-
-            byte[] result = null; RijndaelManaged aesAlg = null;
-            try
-            {
-                Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(publicKey, sharedSalt);
-
-                aesAlg = new RijndaelManaged();
-                aesAlg.Key = key.GetBytes(aesAlg.KeySize / 8);
-
-                ICryptoTransform encryptor = aesAlg.CreateEncryptor(aesAlg.Key, aesAlg.IV);
-
-                using (MemoryStream msEncrypt = new MemoryStream())
-                {
-                    msEncrypt.Write(BitConverter.GetBytes(aesAlg.IV.Length), 0, sizeof(int));
-                    msEncrypt.Write(aesAlg.IV, 0, aesAlg.IV.Length);
-                    using (CryptoStream csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
-                    {
-                        using (StreamWriter swEncrypt = new StreamWriter(csEncrypt))
-                        {
-                            swEncrypt.Write(source);
-                        }
-                    }
-                    result = msEncrypt.ToArray();
-                }
-            }
-            finally
-            {
-                if (aesAlg != null)
-                    aesAlg.Clear();
-            }
-
-            return result;
         }
 
         public static byte[] DecryptAES(byte[] source, string publicKey)
         {
-            if (source == null || source.Length == 0)
-                throw new ArgumentNullException("source");
-            if (string.IsNullOrEmpty(publicKey))
-                throw new ArgumentNullException("publicKey");
-
-            RijndaelManaged aesAlg = null;
-
-            byte[] result = null;
-
             try
             {
-                Rfc2898DeriveBytes key = new Rfc2898DeriveBytes(publicKey, sharedSalt);
-
-                using (MemoryStream msDecrypt = new MemoryStream(source))
-                {
-                    aesAlg = new RijndaelManaged();
-                    aesAlg.Key = key.GetBytes(aesAlg.KeySize / 8);
-                    aesAlg.IV = ReadByteArray(msDecrypt);
-                    ICryptoTransform decryptor = aesAlg.CreateDecryptor(aesAlg.Key, aesAlg.IV);
-                    string str = null;
-                    using (CryptoStream csDecrypt = new CryptoStream(msDecrypt, decryptor, CryptoStreamMode.Read))
-                    {
-                        using (StreamReader srDecrypt = new StreamReader(csDecrypt))
-                            str = srDecrypt.ReadToEnd();
-                    }
-
-                    result = new byte[str.Length * sizeof(char)];
-                    System.Buffer.BlockCopy(str.ToCharArray(), 0, result, 0, result.Length);
-                }
+                var keyHash = GetMD5Hash(publicKey);
+                IBuffer toDecryptBuffer = CryptographicBuffer.DecodeFromBase64String((String)Serializer.FromByteArray(source, typeof(String)));
+                SymmetricKeyAlgorithmProvider aes = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesEcbPkcs7);
+                var symetricKey = aes.CreateSymmetricKey(keyHash);
+                var buffDecrypted = CryptographicEngine.Decrypt(symetricKey, toDecryptBuffer, null);
+                string strDecrypted = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf8, buffDecrypted);
+                return Serializer.ToByteArray(strDecrypted);
             }
-            finally
+            catch (Exception ex)
             {
-                if (aesAlg != null)
-                    aesAlg.Clear();
+                return null;
             }
-
-            return result;
         }
 
         private static string CreateSalt(string s)
@@ -217,13 +113,13 @@ namespace GDPLibrary.Utils
             byte[] rawLength = new byte[sizeof(int)];
             if (s.Read(rawLength, 0, rawLength.Length) != rawLength.Length)
             {
-                throw new SystemException("Stream did not contain properly formatted byte array");
+                throw new Exception("Stream did not contain properly formatted byte array");
             }
 
             byte[] buffer = new byte[BitConverter.ToInt32(rawLength, 0)];
             if (s.Read(buffer, 0, buffer.Length) != buffer.Length)
             {
-                throw new SystemException("Did not read byte array properly");
+                throw new Exception("Did not read byte array properly");
             }
 
             return buffer;

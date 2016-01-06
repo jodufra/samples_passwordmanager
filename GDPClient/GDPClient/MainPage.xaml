@@ -5,7 +5,8 @@
     xmlns:local="using:GDPClient"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
-    mc:Ignorable="d">
+    mc:Ignorable="d"
+    xmlns:controls="using:MyToolkit.Controls">
 
     <SplitView Name="MySplitView" OpenPaneLength="200" IsPaneOpen="False" DisplayMode="Overlay" Background="#2C397F">
         <SplitView.Pane>
@@ -43,11 +44,36 @@
                 <AppBarButton x:Name="copyPasswordAbb" HorizontalAlignment="Stretch" Icon="Copy" Label="Copy Pass" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
                 <AppBarButton x:Name="refreshAbb" HorizontalAlignment="Stretch" Icon="Refresh" Label="Refresh" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
             </StackPanel>
-            
-            <ListView x:Name="listView1" HorizontalAlignment="Stretch" Grid.Row="1" VerticalAlignment="Stretch" DoubleTapped="listView1_DoubleTapped" >
-                <ListViewItem Content="id:1    |    Username: sam7.1@hotmail.com   | Password: *******    |   Nota: ASd asd sadasdasdasd"/>
-            </ListView>
-
+            <controls:DataGrid ItemsSource="{Binding Entries}" x:Name="DataGrid" SelectionMode="Multiple" DefaultOrderIndex="1" SelectedItem="{Binding SelectedEntry, Mode=OneTime}" SelectionChanged="OnSelectedItemsChanged">
+                <controls:DataGrid.Columns>
+                    <controls:DataGridTextColumn  Binding="{Binding Title}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}">
+                        <controls:DataGridTextColumn.Header>
+                            <TextBlock Text="Title"/>
+                        </controls:DataGridTextColumn.Header>
+                    </controls:DataGridTextColumn>
+                    <controls:DataGridTextColumn  Binding="{Binding Username}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}">
+                        <controls:DataGridTextColumn.Header>
+                            <TextBlock Text="Username"/>
+                        </controls:DataGridTextColumn.Header>
+                    </controls:DataGridTextColumn>
+                    <controls:DataGridTextColumn  Binding="{Binding Password}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}">
+                        <controls:DataGridTextColumn.Header>
+                            <TextBlock Text="Password"/>
+                        </controls:DataGridTextColumn.Header>
+                    </controls:DataGridTextColumn>
+                    <controls:DataGridTextColumn  Binding="{Binding Url}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}">
+                        <controls:DataGridTextColumn.Header>
+                            <TextBlock Text="Url"/>
+                        </controls:DataGridTextColumn.Header>
+                    </controls:DataGridTextColumn>
+                    <controls:DataGridTextColumn  Binding="{Binding Notes}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}">
+                        <controls:DataGridTextColumn.Header>
+                            <TextBlock Text="Notes"/>
+                        </controls:DataGridTextColumn.Header>
+                    </controls:DataGridTextColumn>
+                </controls:DataGrid.Columns>
+                
+            </controls:DataGrid>
         </Grid>
     </SplitView>
 </Page>

@@ -34,10 +34,10 @@ namespace GDPWebApi.Repositories
         {
             List<String> errors = new List<string>();
 
-            if (record.IdCategory == null)
+            if (record.IdCategory < 1)
                 errors.Add("Category is required");
 
-            if (record.IdUser == null)
+            if (record.IdUser < 1)
                 errors.Add("User is required");
 
             if (!errors.Any())

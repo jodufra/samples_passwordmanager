@@ -1,11 +1,16 @@
-﻿using System;
+﻿using Entities;
+using GDPClient.Others;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
+using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Certificates;
+using Windows.UI.Popups;
 using Windows.UI.Xaml;
 using Windows.UI.Xaml.Controls;
 using Windows.UI.Xaml.Controls.Primitives;
@@ -13,6 +18,7 @@ using Windows.UI.Xaml.Data;
 using Windows.UI.Xaml.Input;
 using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
+using Windows.Web.Http;
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -33,19 +39,51 @@ namespace GDPClient
             loadCertificates();
         }
 
-        private void okBtn_Click(object sender, RoutedEventArgs e)
+        private async void okBtn_Click(object sender, RoutedEventArgs e)
         {
-            //Save user on service
-            //check service
-                //ok
-                    //fazer verificacoes
-                        //encript pass
-                        //criar user XML? e enviar encriptado 
-                        //success
-                   //da merda
-                        //show errors     
-                //service fucked
-                    //errors
+            List<String> errors = new List<string>();
+
+            var model = new
+            {
+                register = new
+                {
+                    username = usernameBox.Text,
+                    password = passwordBox.Password,
+                    passwordConfirm = passwordConfirmBox.Password,
+                    certSubject = selectedCertificate.Subject,
+                    certIssuer = selectedCertificate.Issuer,
+                    certThumbprint = CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue())),
+                    certSerialNumber = CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.SerialNumber)),
+                    certValidFrom = selectedCertificate.ValidFrom.DateTime,
+                    certValidTo = selectedCertificate.ValidFrom.DateTime
+                }
+            };
+
+            if (String.IsNullOrEmpty(model.register.username))
+                errors.Add("Username is required");
+
+            if (String.IsNullOrEmpty(model.register.password))
+                errors.Add("Password is required");
+            else if (model.register.password != passwordConfirmBox.Password)
+                errors.Add("Passwords are not equal");
+
+            if (!errors.Any())
+            {
+                try
+                {
+                    var url = App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/register";
+                    HttpResponseMessage mReceived = await ApiRequest.MakeRequest(url, HttpMethod.Post, model.ToQueryString());
+                    errors.Add(JsonConvert.DeserializeObject<String>(await mReceived.Content.ReadAsStringAsync()));
+                    mReceived.Dispose();
+                }
+                catch
+                {
+                    errors.Add("Unable to request the service!");
+                }   
+            }
+            
+            if (errors.Any())
+                ShowErrorMsg(String.Join(Environment.NewLine, errors));
         }
 
         private void cancelBtn_Click(object sender, RoutedEventArgs e)
@@ -60,7 +98,7 @@ namespace GDPClient
             var task = CertificateStores.FindAllAsync();
             task.AsTask().Wait();
             var certlist = task.GetResults();
-            
+
             LoadCertList(certlist);
 
             if (certificatesListCB.Items.Count == 0)
@@ -80,7 +118,7 @@ namespace GDPClient
             this.certList = certificateList;
             this.certificatesListCB.Items.Clear();
 
-            if(certList.Count>0)
+            if (certList.Count > 0)
                 certificatesListCB.Items.Add("");
             for (int i = 0; i < certList.Count; i++)
             {
@@ -95,15 +133,15 @@ namespace GDPClient
 
         private void certificatesListCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            if(certificatesListCB.SelectedIndex == 0)
+            if (certificatesListCB.SelectedIndex == 0)
             {
                 certDataGrid.Visibility = Visibility.Collapsed;
                 selectedCertificate = null;
             }
-            else if (certificatesListCB.SelectedIndex>0)
+            else if (certificatesListCB.SelectedIndex > 0)
             {
                 //get cert info
-                selectedCertificate = certList[certificatesListCB.SelectedIndex-1];
+                selectedCertificate = certList[certificatesListCB.SelectedIndex - 1];
 
                 issuedToTb.Text = " " + selectedCertificate.Subject;
                 issuedByTb.Text = " " + selectedCertificate.Issuer;
@@ -115,5 +153,12 @@ namespace GDPClient
             }
         }
 
+        private async void ShowErrorMsg(String msg)
+        {
+            var messageDialog = new MessageDialog(msg);
+            messageDialog.Commands.Add(new UICommand("OK"));
+            messageDialog.DefaultCommandIndex = 0;
+            await messageDialog.ShowAsync();
+        }
     }
 }

@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Entities;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,9 +23,16 @@ namespace GDPClient
     /// </summary>
     public sealed partial class MainPage : Page
     {
+
+        public List<Entry> Entries { get; set; }
+
         public MainPage()
         {
+            Entries = new List<Entry>();
             this.InitializeComponent();
+
+
+
         }
 
         private void SplitViewButton_Click(object sender, RoutedEventArgs e)
@@ -72,6 +80,11 @@ namespace GDPClient
         {
             CDEditEntry cdee = new CDEditEntry();
             await cdee.ShowAsync();
+        }
+
+        private void OnSelectedItemsChanged(object sender, SelectionChangedEventArgs e)
+        {
+
         }
     }
 }

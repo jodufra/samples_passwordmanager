@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.Serialization;
 
-namespace GDPLibrary.Entities
+namespace Entities
 {
     [DataContract]
     public class Category

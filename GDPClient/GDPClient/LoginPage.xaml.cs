@@ -16,6 +16,7 @@ using System.ComponentModel.DataAnnotations;
 using Windows.UI.Popups;
 using Windows.Web.Http;
 using Newtonsoft.Json;
+using Entities;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -27,7 +28,6 @@ namespace GDPClient
     /// </summary>
     public sealed partial class LoginPage : Page
     {
-        private HttpClient httpClient;
 
         public LoginPage()
         {
@@ -41,52 +41,46 @@ namespace GDPClient
 
         private async void loginBtn_Click(object sender, RoutedEventArgs e)
         {
-            //!string.IsNullOrEmpty(emailBox.Text) && IsValidEmail(emailBox.Text)
-            if (!string.IsNullOrEmpty(usernameBox.Text) && usernameBox.Text.Length >= 3)
+            String error = "";
+            if (string.IsNullOrEmpty(usernameBox.Text) || usernameBox.Text.Length < 3)
+                error = "Invalid Username!" + Environment.NewLine;
+
+            if (string.IsNullOrEmpty(passwordBox.Password))
+                error += "Invalid Password!";
+
+            if (string.IsNullOrEmpty(error))
             {
-                if (!string.IsNullOrEmpty(passwordBox.Password))
+                try
                 {
-                    try {
-                        httpClient = new HttpClient();
-                        Uri uri = new Uri(App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/login?login[Username]=" + usernameBox.Text + "&login[Password]=" + passwordBox.Password);
-                        HttpRequestMessage mSent = new HttpRequestMessage(HttpMethod.Post, uri);
-                        HttpResponseMessage mReceived = await httpClient.SendRequestAsync(mSent, HttpCompletionOption.ResponseContentRead);
+                    HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
+                        App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/login",
+                        HttpMethod.Post,
+                        (new { login = new { Username = usernameBox.Text, Password = passwordBox.Password } }).ToQueryString());
 
-                        if (mReceived.IsSuccessStatusCode)
-                        {
-                            User user = JsonConvert.DeserializeObject<User>(await mReceived.Content.ReadAsStringAsync());
-                            AppData.Instance.User = user;
-
-                            Frame.Navigate(typeof(MainPage));
-                        }
-                        else
-                        {
-                            String content = JsonConvert.DeserializeObject<String>(await mReceived.Content.ReadAsStringAsync());
-                            ShowErrorMsg(content);
-                        }
-
-                        mReceived.Dispose();
-                        mSent.Dispose();
-                        httpClient.Dispose();
-                    }
-                    catch
+                    if (mReceived.IsSuccessStatusCode)
                     {
-                        ShowErrorMsg("Unable to request the service!");
-                    }
+                        User user = JsonConvert.DeserializeObject<User>(await mReceived.Content.ReadAsStringAsync());
+                        AppData.Instance.User = user;
 
+                        Frame.Navigate(typeof(MainPage));
+                    }
+                    else
+                    {
+                        error = JsonConvert.DeserializeObject<String>(await mReceived.Content.ReadAsStringAsync());
+                    }
+                    mReceived.Dispose();
                 }
-                else
+                catch
                 {
-                    ShowErrorMsg("Invalid Password!");
+                    error = "Unable to request the service!";
                 }
             }
-            else
-            {
-                ShowErrorMsg("Invalid Username!");
-            }
+
+            if (!string.IsNullOrEmpty(error))
+                ShowErrorMsg(error);
         }
 
-        
+
         public bool IsValidEmail(string source)
         {
             return new EmailAddressAttribute().IsValid(source);
@@ -118,7 +112,7 @@ namespace GDPClient
         {
             CDServiceConn cdsc = new CDServiceConn();
             await cdsc.ShowAsync(); //http://localhost:14006/api/
-            
+
         }
 
         private void loginBtn_Click_1(object sender, RoutedEventArgs e)

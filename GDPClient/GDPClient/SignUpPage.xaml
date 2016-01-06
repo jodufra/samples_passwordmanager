@@ -29,9 +29,9 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="1">
-                    <TextBox Name="emailBox" PlaceholderText="Your Email" />
-                    <PasswordBox Name="passwordBox1" PlaceholderText="Password" />
-                    <PasswordBox Name="passwordBox2" PlaceholderText="Confirm Password" />
+                    <TextBox Name="usernameBox" PlaceholderText="Username" />
+                    <PasswordBox Name="passwordBox" PlaceholderText="Password" />
+                    <PasswordBox Name="passwordConfirmBox" PlaceholderText="Confirm Password" />
                     <TextBlock Text="Certificate: (Optional)" Margin="0 10 0 0"/>
 
                     <!--Certificate Stuff-->
