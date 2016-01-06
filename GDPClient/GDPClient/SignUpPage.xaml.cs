@@ -41,6 +41,8 @@ namespace GDPClient
 
         private async void okBtn_Click(object sender, RoutedEventArgs e)
         {
+            toggleLoading(true);
+
             List<String> errors = new List<string>();
 
             var register = new
@@ -86,6 +88,24 @@ namespace GDPClient
 
             if (errors.Any())
                 ShowErrorMsg(String.Join(Environment.NewLine, errors));
+
+            toggleLoading(false);
+        }
+
+        private void toggleLoading(bool isLoading)
+        {
+            if (isLoading)
+            {
+                loadingPb.Visibility = Visibility.Visible;
+                okBtn.IsEnabled = false;
+                cancelBtn.IsEnabled = false;
+            }
+            else
+            {
+                loadingPb.Visibility = Visibility.Collapsed;
+                okBtn.IsEnabled = true;
+                cancelBtn.IsEnabled = true;
+            }
         }
 
         private void cancelBtn_Click(object sender, RoutedEventArgs e)

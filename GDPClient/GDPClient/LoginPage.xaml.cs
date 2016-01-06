@@ -41,6 +41,8 @@ namespace GDPClient
 
         private async void loginBtn_Click(object sender, RoutedEventArgs e)
         {
+            toggleLoading(true);
+
             String error = "";
             if (string.IsNullOrEmpty(usernameBox.Text) || usernameBox.Text.Length < 3)
                 error = "Username is required and its length higher or equal to 3." + Environment.NewLine;
@@ -78,8 +80,25 @@ namespace GDPClient
 
             if (!string.IsNullOrEmpty(error))
                 ShowErrorMsg(error);
+
+            toggleLoading(false);
         }
 
+        private void toggleLoading(bool isLoading)
+        {
+            if (isLoading)
+            {
+                loadingPb.Visibility = Visibility.Visible;
+                loginBtn.IsEnabled = false;
+                certloginBtn.IsEnabled = false;
+            }
+            else
+            {
+                loadingPb.Visibility = Visibility.Collapsed;
+                loginBtn.IsEnabled = true;
+                certloginBtn.IsEnabled = true;
+            }
+        }
 
         public bool IsValidEmail(string source)
         {

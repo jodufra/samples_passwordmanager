@@ -34,12 +34,14 @@
                 </StackPanel>
 
                 <StackPanel Grid.Row="2" HorizontalAlignment="Stretch" VerticalAlignment="Top" Orientation="Vertical" Margin="0 14 0 0">
+                    <ProgressBar Name="loadingPb" VerticalAlignment="Stretch" Visibility="Collapsed" IsIndeterminate="True"/>
                     <Button Name="loginBtn" Content="Login" Background="#FF0559D3" Click="loginBtn_Click" Width="340" />
                     <Button Name="certloginBtn" Content="Login with Certificate" Background="#FF726E66" Width="340"/>
                     <Grid  Margin="0 20 0 0">
                         <Button Name="signupBtn" Content="Sign Up" Background="#FFF1C302" Click="signupBtn_Click" />
                         <Button Name="serviceConnBtn" Content="&#xE713;" FontFamily="Segoe MDL2 Assets" Click="serviceConnBtn_Click" HorizontalAlignment="Right" Height="33" Width="43"/>
                     </Grid>
+                    
                 </StackPanel>
             </Grid>
         </StackPanel>
