@@ -1,5 +1,4 @@
 ﻿using GDPLibrary.Entities;
-using GDPWebApi.Models;
 using GDPWebApi.Repositories;
 using System;
 using System.Collections.Generic;

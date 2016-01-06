@@ -13,19 +13,6 @@ namespace Utils
 {
     public class Security
     {
-        private static byte[] sharedSalt = Encoding.ASCII.GetBytes("v3rys01tys01t");
-
-        public static String GetSHA256SaltyPassword(String username, String password, out String salt)
-        {
-            salt = CreateSalt(username);
-            return GetSHA256SaltyHashFromTastlessHash(password, salt);
-        }
-
-        public static String GetSHA256SaltyHashFromTastlessHash(String input, String salt)
-        {
-            return GetSHA256Hash(input + salt + sharedSalt);
-        }
-
         public static String GetSHA256Hash(String input)
         {
             if (String.IsNullOrEmpty(input))
@@ -88,48 +75,6 @@ namespace Utils
                 return null;
             }
         }
-
-        private static string CreateSalt(string s)
-        {
-            string str = s;
-            byte[] userBytes;
-            string salt;
-            userBytes = ASCIIEncoding.ASCII.GetBytes(str);
-            long XORED = 0x00;
-
-            foreach (int x in userBytes)
-                XORED = XORED ^ x;
-
-            Random rand = new Random(Convert.ToInt32(XORED));
-            salt = rand.Next().ToString();
-            salt += rand.Next().ToString();
-            salt += rand.Next().ToString();
-            salt += rand.Next().ToString();
-            return salt;
-        }
-
-        private static byte[] ReadByteArray(Stream s)
-        {
-            byte[] rawLength = new byte[sizeof(int)];
-            if (s.Read(rawLength, 0, rawLength.Length) != rawLength.Length)
-            {
-                throw new Exception("Stream did not contain properly formatted byte array");
-            }
-
-            byte[] buffer = new byte[BitConverter.ToInt32(rawLength, 0)];
-            if (s.Read(buffer, 0, buffer.Length) != buffer.Length)
-            {
-                throw new Exception("Did not read byte array properly");
-            }
-
-            return buffer;
-        }
-
-        private static byte[] StringToByteArray(String s)
-        {
-            byte[] result = new byte[s.Length * sizeof(char)];
-            System.Buffer.BlockCopy(s.ToCharArray(), 0, result, 0, result.Length);
-            return result;
-        }
+        
     }
 }

@@ -9,7 +9,7 @@ using Windows.Web.Http.Headers;
 
 public static class ExtensionMethods
 {
-    // Usage: string query = (new { login = new { Username = "admin", Password = "admin" } }).ToQueryString();
+    // Usage: string query = (new { Username = "admin", Password = "admin" }).ToQueryString("login");
     public static string ToQueryString(this object obj, string name = null)
     {
         bool hasName = !String.IsNullOrEmpty(name);
