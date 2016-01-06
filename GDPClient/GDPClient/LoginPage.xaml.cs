@@ -19,6 +19,7 @@ using Newtonsoft.Json;
 using Entities;
 using Utils;
 using Windows.Security.Cryptography.Certificates;
+using Windows.Security.Cryptography;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -46,39 +47,81 @@ namespace GDPClient
         private async void loginBtn_Click(object sender, RoutedEventArgs e)
         {
             toggleLoading(true);
-
             String error = "";
-            if (string.IsNullOrEmpty(usernameBox.Text) || usernameBox.Text.Length < 3)
-                error = "Username is required and its length higher or equal to 3." + Environment.NewLine;
 
-            if (string.IsNullOrEmpty(passwordBox.Password))
-                error += "Password is required.";
-
-            if (string.IsNullOrEmpty(error))
+            if (certloginTb.IsChecked == true)
             {
-                try
+                if (!certificatesListCB.IsEnabled)
+                    error = "Their are no certificates on the store." + Environment.NewLine;
+                if (selectedCertificate == null && certList.Count >0)
+                    error = "Select a valid certificate." + Environment.NewLine;
+
+                if (string.IsNullOrEmpty(error))
                 {
-                    HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
-                        App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/login",
-                        HttpMethod.Post,
-                        (new { Username = usernameBox.Text, Password = Security.GetSHA256Hash(passwordBox.Password) }).ToQueryString("login"));
-
-                    if (mReceived.IsSuccessStatusCode)
+                    try
                     {
-                        User user = JsonConvert.DeserializeObject<User>(await mReceived.Content.ReadAsStringAsync());
-                        AppData.Instance.User = user;
+                        var thumprint = new
+                        {
+                            thumprint = Security.GetSHA256Hash(CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue())))
+                        };
 
-                        Frame.Navigate(typeof(MainPage));
+                        HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
+                            App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/LoginCertificate",
+                            HttpMethod.Post,
+                            thumprint.ToQueryString());
+
+                        if (mReceived.IsSuccessStatusCode)
+                        {
+                           
+                            //Frame.Navigate(typeof(MainPage));
+                        }
+                        else
+                        {
+                           
+                        }
+                        mReceived.Dispose();
                     }
-                    else
+                    catch
                     {
-                        error = JsonConvert.DeserializeObject<String>(await mReceived.Content.ReadAsStringAsync());
+                        error = "Unable to request the service.";
                     }
-                    mReceived.Dispose();
                 }
-                catch
+            }
+            else
+            {
+
+                if (string.IsNullOrEmpty(usernameBox.Text) || usernameBox.Text.Length < 3)
+                    error = "Username is required and its length higher or equal to 3." + Environment.NewLine;
+
+                if (string.IsNullOrEmpty(passwordBox.Password))
+                    error += "Password is required.";
+
+                if (string.IsNullOrEmpty(error))
                 {
-                    error = "Unable to request the service.";
+                    try
+                    {
+                        HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
+                            App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/login",
+                            HttpMethod.Post,
+                            (new { Username = usernameBox.Text, Password = Security.GetSHA256Hash(passwordBox.Password) }).ToQueryString("login"));
+
+                        if (mReceived.IsSuccessStatusCode)
+                        {
+                            User user = JsonConvert.DeserializeObject<User>(await mReceived.Content.ReadAsStringAsync());
+                            AppData.Instance.User = user;
+
+                            Frame.Navigate(typeof(MainPage));
+                        }
+                        else
+                        {
+                            error = JsonConvert.DeserializeObject<String>(await mReceived.Content.ReadAsStringAsync());
+                        }
+                        mReceived.Dispose();
+                    }
+                    catch
+                    {
+                        error = "Unable to request the service.";
+                    }
                 }
             }
 
@@ -175,6 +218,19 @@ namespace GDPClient
         private void refreshCertsBtn_Click(object sender, RoutedEventArgs e)
         {
             loadCertificates();
+        }
+
+        private void certificatesListCB_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (certificatesListCB.SelectedIndex == 0)
+            {
+                selectedCertificate = null;
+            }
+            else if (certificatesListCB.SelectedIndex > 0)
+            {
+                //get cert info
+                selectedCertificate = certList[certificatesListCB.SelectedIndex - 1];
+            }
         }
     }
 }

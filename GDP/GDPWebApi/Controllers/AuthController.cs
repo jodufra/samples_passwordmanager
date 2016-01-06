@@ -45,8 +45,9 @@ namespace GDPWebApi.Controllers
         }
 
         [HttpPost, Route("LoginCertificate")]
-        public HttpResponseMessage LoginCertificate()
+        public HttpResponseMessage LoginCertificate([FromUri] String thumbprint)
         {
+            
             return Request.CreateResponse(HttpStatusCode.NotImplemented);
         }
 

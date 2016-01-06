@@ -31,10 +31,11 @@
                     <StackPanel Name="certFields" Visibility="Collapsed">
                         <TextBlock Text="Certificate:" />
                         <StackPanel Orientation="Horizontal">
-                            <ComboBox Name="certificatesListCB" Width="305"/>
+                            <ComboBox Name="certificatesListCB" Width="305" SelectionChanged="certificatesListCB_SelectionChanged"/>
                             <Button x:Name="refreshCertsBtn"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Content="&#xE72C;" ToolTipService.ToolTip="Refresh certificates from store" Click="refreshCertsBtn_Click" />
                         </StackPanel>
                     </StackPanel>
+                    
                     <StackPanel Name="loginFields">
                         <TextBox Name="usernameBox" PlaceholderText="Username" />
                         <PasswordBox Name="passwordBox" PlaceholderText="Password" />
