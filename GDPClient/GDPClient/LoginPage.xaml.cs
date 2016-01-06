@@ -14,9 +14,9 @@ using Windows.UI.Xaml.Media;
 using Windows.UI.Xaml.Navigation;
 using System.ComponentModel.DataAnnotations;
 using Windows.UI.Popups;
-using System.Net.Http;
-using Windows.Web.Http.Filters;
-using System.Threading;
+using Windows.Web.Http;
+using Newtonsoft.Json;
+
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
 
@@ -28,7 +28,6 @@ namespace GDPClient
     public sealed partial class LoginPage : Page
     {
         private HttpClient httpClient;
-        private CancellationTokenSource cts;
 
         public LoginPage()
         {
@@ -43,23 +42,43 @@ namespace GDPClient
         private async void loginBtn_Click(object sender, RoutedEventArgs e)
         {
             //!string.IsNullOrEmpty(emailBox.Text) && IsValidEmail(emailBox.Text)
-            if (!string.IsNullOrEmpty(usernameBox.Text) && usernameBox.Text.Length >= 6)
+            if (!string.IsNullOrEmpty(usernameBox.Text) && usernameBox.Text.Length >= 3)
             {
                 if (!string.IsNullOrEmpty(passwordBox.Password))
                 {
-                    httpClient = new HttpClient();
-                    cts = new CancellationTokenSource();
-                    Uri uri = new Uri(App.LocalSettings.Values[App.ServiceConn].ToString());
-                    HttpResponseMessage response = await httpClient.GetAsync(uri);
+                    try {
+                        httpClient = new HttpClient();
+                        Uri uri = new Uri(App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/login?login[Username]=" + usernameBox.Text + "&login[Password]=" + passwordBox.Password);
+                        HttpRequestMessage mSent = new HttpRequestMessage(HttpMethod.Post, uri);
+                        HttpResponseMessage mReceived = await httpClient.SendRequestAsync(mSent, HttpCompletionOption.ResponseContentRead);
 
+                        if (mReceived.IsSuccessStatusCode)
+                        {
+                            User user = JsonConvert.DeserializeObject<User>(await mReceived.Content.ReadAsStringAsync());
+                            AppData.Instance.User = user;
 
-                    Frame.Navigate(typeof(MainPage));
+                            Frame.Navigate(typeof(MainPage));
+                        }
+                        else
+                        {
+                            String content = JsonConvert.DeserializeObject<String>(await mReceived.Content.ReadAsStringAsync());
+                            ShowErrorMsg(content);
+                        }
+
+                        mReceived.Dispose();
+                        mSent.Dispose();
+                        httpClient.Dispose();
+                    }
+                    catch
+                    {
+                        ShowErrorMsg("Unable to request the service!");
+                    }
+
                 }
                 else
                 {
                     ShowErrorMsg("Invalid Password!");
                 }
-               
             }
             else
             {
@@ -76,7 +95,7 @@ namespace GDPClient
         private async void ShowErrorMsg(String msg)
         {
             var messageDialog = new MessageDialog(msg);
-            messageDialog.Commands.Add(new UICommand("Try again"));
+            messageDialog.Commands.Add(new UICommand("OK"));
             messageDialog.DefaultCommandIndex = 0;
             await messageDialog.ShowAsync();
         }

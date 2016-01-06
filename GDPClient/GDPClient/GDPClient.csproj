@@ -122,6 +122,7 @@
     <Compile Include="App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
     </Compile>
+    <Compile Include="AppData.cs" />
     <Compile Include="CDEditEntry.xaml.cs">
       <DependentUpon>CDEditEntry.xaml</DependentUpon>
     </Compile>
@@ -134,6 +135,10 @@
     <Compile Include="CDUserSettings.xaml.cs">
       <DependentUpon>CDUserSettings.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Entitites\Category.cs" />
+    <Compile Include="Entitites\Entry.cs" />
+    <Compile Include="Entitites\Record.cs" />
+    <Compile Include="Entitites\User.cs" />
     <Compile Include="LoginPage.xaml.cs">
       <DependentUpon>LoginPage.xaml</DependentUpon>
     </Compile>
@@ -149,6 +154,8 @@
     <Compile Include="SignUpPage.xaml.cs">
       <DependentUpon>SignUpPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Utils\Security.cs" />
+    <Compile Include="Utils\Serializer.cs" />
   </ItemGroup>
   <ItemGroup>
     <AppxManifest Include="Package.appxmanifest">
