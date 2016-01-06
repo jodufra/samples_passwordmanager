@@ -6,6 +6,8 @@ using Windows.Security.Cryptography;
 using Windows.Security.Cryptography.Core;
 using System.Text;
 using System.Threading.Tasks;
+using Windows.Storage.Streams;
+using System.Runtime.InteropServices.WindowsRuntime;
 
 namespace GDPLibrary.Utils
 {
@@ -28,10 +30,54 @@ namespace GDPLibrary.Utils
         {
             if (String.IsNullOrEmpty(input))
                 return "";
-            SHA256 sha256 = new SHA256CryptoServiceProvider();
-            Byte[] originalBytes = Encoding.Default.GetBytes(input);
-            Byte[] encodedBytes = sha256.ComputeHash(originalBytes);
-            return BitConverter.ToString(encodedBytes);
+            HashAlgorithmProvider sha256 = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Sha256);
+            IBuffer originalBytes = CryptographicBuffer.DecodeFromBase64String(input);
+            IBuffer encodedBytes = sha256.HashData(originalBytes);
+            return CryptographicBuffer.EncodeToHexString(encodedBytes);
+        }
+
+        private static IBuffer GetMD5Hash(string key)
+        {
+            IBuffer buffUtf8Msg = CryptographicBuffer.ConvertStringToBinary(key, BinaryStringEncoding.Utf8);
+            HashAlgorithmProvider objAlgProv = HashAlgorithmProvider.OpenAlgorithm(HashAlgorithmNames.Md5);
+            IBuffer buffHash = objAlgProv.HashData(buffUtf8Msg);
+
+            if (buffHash.Length != objAlgProv.HashLength)
+            {
+                throw new Exception("There was an error creating the hash");
+            }
+            return buffHash;
+        }
+
+        public static string EncryptAES(string source, string publicKey)
+        {
+            if (source == null || source.Length == 0)
+                throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(publicKey))
+                throw new ArgumentNullException("publicKey");
+            try
+            {
+                var keyHash = GetMD5Hash(publicKey);
+                var toDecryptBuffer = CryptographicBuffer.ConvertStringToBinary(source, BinaryStringEncoding.Utf8);
+                var aes = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesEcbPkcs7);
+                // Create a symmetric key.
+                var symetricKey = aes.CreateSymmetricKey(keyHash);
+                // The input key must be securely shared between the sender of the cryptic message
+                // and the recipient. The initialization vector must also be shared but does not
+                // need to be shared in a secure manner. If the sender encodes a message string
+                // to a buffer, the binary encoding method must also be shared with the recipient.
+                var buffEncrypted = CryptographicEngine.Encrypt(symetricKey, toDecryptBuffer, null);
+                // Convert the encrypted buffer to a string (for display).
+                // We are using Base64 to convert bytes to string since you might get unmatched characters
+                // in the encrypted buffer that we cannot convert to string with UTF8.
+                var strEncrypted = CryptographicBuffer.EncodeToBase64String(buffEncrypted);
+                
+                return strEncrypted;
+            }
+            catch (Exception ex)
+            {
+                return "";
+            }
         }
 
         public static byte[] EncryptAES(byte[] source, string publicKey)
