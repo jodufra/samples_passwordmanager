@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Utils;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.Security.Cryptography;
@@ -43,35 +44,33 @@ namespace GDPClient
         {
             List<String> errors = new List<string>();
 
-            var register = new
-            {
-                username = usernameBox.Text,
-                password = passwordBox.Password,
-                passwordConfirm = passwordConfirmBox.Password,
-                certSubject = selectedCertificate == null ? null : selectedCertificate.Subject,
-                certIssuer = selectedCertificate == null ? null : selectedCertificate.Issuer,
-                certThumbprint = selectedCertificate == null ? null : CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue())),
-                certSerialNumber = selectedCertificate == null ? null : CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.SerialNumber)),
-                certValidFrom = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidFrom.DateTime,
-                certValidTo = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidTo.DateTime
-            };
-
-            if (String.IsNullOrEmpty(register.username) || register.username.Length < 3)
+            if (String.IsNullOrEmpty(usernameBox.Text) || usernameBox.Text.Length < 3)
                 errors.Add("Username is required and its length higher or equal to 3.");
 
-            if (String.IsNullOrEmpty(register.password))
+            if (String.IsNullOrEmpty(passwordBox.Password))
                 errors.Add("Password is required.");
-            else if (register.password != passwordConfirmBox.Password)
+            else if (passwordBox.Password != passwordConfirmBox.Password)
                 errors.Add("Passwords are not equal.");
 
             if (!errors.Any())
             {
+                var register = new
+                {
+                    username = usernameBox.Text,
+                    password = Security.GetSHA256Hash(passwordBox.Password),
+                    certSubject = selectedCertificate == null ? null : selectedCertificate.Subject,
+                    certIssuer = selectedCertificate == null ? null : selectedCertificate.Issuer,
+                    certThumbprint = selectedCertificate == null ? null : CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue())),
+                    certSerialNumber = selectedCertificate == null ? null : CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.SerialNumber)),
+                    certValidFrom = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidFrom.DateTime,
+                    certValidTo = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidTo.DateTime
+                };
                 try
                 {
                     var url = App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/register";
                     HttpResponseMessage mReceived = await ApiRequest.MakeRequest(url, HttpMethod.Post, register.ToQueryString("register"));
                     errors.AddRange(JsonConvert.DeserializeObject<List<String>>(await mReceived.Content.ReadAsStringAsync()));
-                    if(mReceived.StatusCode == HttpStatusCode.Ok)
+                    if (mReceived.StatusCode == HttpStatusCode.Ok)
                     {
                         ShowErrorMsg(String.Join(Environment.NewLine, errors));
                         Frame.Navigate(typeof(LoginPage));

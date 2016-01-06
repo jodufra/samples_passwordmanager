@@ -30,7 +30,12 @@ namespace GDPLibrary.Utils
             SHA256 sha256 = new SHA256CryptoServiceProvider();
             Byte[] originalBytes = Encoding.Default.GetBytes(input);
             Byte[] encodedBytes = sha256.ComputeHash(originalBytes);
-            return BitConverter.ToString(encodedBytes);
+            string result = "";
+            foreach (byte x in encodedBytes)
+            {
+                result += String.Format("{0:x2}", x);
+            }
+            return result;
         }
 
         public static byte[] EncryptAES(byte[] source, string publicKey)

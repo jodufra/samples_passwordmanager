@@ -17,6 +17,7 @@ using Windows.UI.Popups;
 using Windows.Web.Http;
 using Newtonsoft.Json;
 using Entities;
+using Utils;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -55,7 +56,7 @@ namespace GDPClient
                     HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
                         App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/login",
                         HttpMethod.Post,
-                        (new { Username = usernameBox.Text, Password = passwordBox.Password }).ToQueryString("login"));
+                        (new { Username = usernameBox.Text, Password = Security.GetSHA256Hash(passwordBox.Password) }).ToQueryString("login"));
 
                     if (mReceived.IsSuccessStatusCode)
                     {
