@@ -18,6 +18,7 @@ using Windows.Web.Http;
 using Newtonsoft.Json;
 using Entities;
 using Utils;
+using Windows.Security.Cryptography.Certificates;
 
 
 // The Blank Page item template is documented at http://go.microsoft.com/fwlink/?LinkId=234238
@@ -29,7 +30,9 @@ namespace GDPClient
     /// </summary>
     public sealed partial class LoginPage : Page
     {
-
+        private IReadOnlyList<Certificate> certList;
+        private static string NOCERTS = "No certificates found";
+        private Certificate selectedCertificate = null;
         public LoginPage()
         {
             this.InitializeComponent();
@@ -42,6 +45,8 @@ namespace GDPClient
 
         private async void loginBtn_Click(object sender, RoutedEventArgs e)
         {
+            toggleLoading(true);
+
             String error = "";
             if (string.IsNullOrEmpty(usernameBox.Text) || usernameBox.Text.Length < 3)
                 error = "Username is required and its length higher or equal to 3." + Environment.NewLine;
@@ -78,8 +83,25 @@ namespace GDPClient
 
             if (!string.IsNullOrEmpty(error))
                 ShowErrorMsg(error);
+
+            toggleLoading(false);
         }
 
+        private void toggleLoading(bool isLoading)
+        {
+            if (isLoading)
+            {
+                loadingPb.Visibility = Visibility.Visible;
+                loginBtn.IsEnabled = false;
+                certloginTb.IsEnabled = false;
+            }
+            else
+            {
+                loadingPb.Visibility = Visibility.Collapsed;
+                loginBtn.IsEnabled = true;
+                certloginTb.IsEnabled = true;
+            }
+        }
 
         public bool IsValidEmail(string source)
         {
@@ -94,30 +116,64 @@ namespace GDPClient
             await messageDialog.ShowAsync();
         }
 
-
-        /*String result = RequestApi(@"/api/photos/folder", "GET", myjson);
-        photosFiles = JsonConvert.DeserializeObject<List<Category>>(result);
-
-        private static String RequestApi(String url, String method, String json)
-        {
-            using (var client = new WebClient())
-            {
-                client.Headers[HttpRequestHeader.ContentType] = "application/json";
-                url = AppSettingsService.WebsiteUrl + url;
-                return client.UploadString(url, "POST", json);
-            }
-        }*/
-
         private async void serviceConnBtn_Click(object sender, RoutedEventArgs e)
         {
             CDServiceConn cdsc = new CDServiceConn();
-            await cdsc.ShowAsync(); //http://localhost:14006/api/
-
+            await cdsc.ShowAsync(); 
         }
 
-        private void loginBtn_Click_1(object sender, RoutedEventArgs e)
+        private void certloginTb_Click(object sender, RoutedEventArgs e)
         {
+            if (certloginTb.IsChecked == true)
+            {
+                loginFields.Visibility = Visibility.Collapsed;
+                certFields.Visibility = Visibility.Visible;
+                loadCertificates();
+            }
+            else
+            {
+                loginFields.Visibility = Visibility.Visible;
+                certFields.Visibility = Visibility.Collapsed;
+            }
+        }
 
+        private void loadCertificates()
+        {
+            certificatesListCB.Items.Clear();
+            var task = CertificateStores.FindAllAsync();
+            task.AsTask().Wait();
+            var certlist = task.GetResults();
+
+            LoadCertList(certlist);
+
+            if (certificatesListCB.Items.Count == 0)
+            {
+                certificatesListCB.Items.Add(NOCERTS);
+                certificatesListCB.IsEnabled = false;
+            }
+            else
+            {
+                certificatesListCB.IsEnabled = true;
+            }
+            certificatesListCB.SelectedIndex = 0;
+        }
+
+        public void LoadCertList(IReadOnlyList<Certificate> certificateList)
+        {
+            this.certList = certificateList;
+            this.certificatesListCB.Items.Clear();
+
+            if (certList.Count > 0)
+                certificatesListCB.Items.Add("");
+            for (int i = 0; i < certList.Count; i++)
+            {
+                this.certificatesListCB.Items.Add(certList[i].Subject);
+            }
+        }
+
+        private void refreshCertsBtn_Click(object sender, RoutedEventArgs e)
+        {
+            loadCertificates();
         }
     }
 }
