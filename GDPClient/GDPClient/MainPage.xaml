@@ -10,33 +10,22 @@
 
     <SplitView Name="MySplitView" OpenPaneLength="200" IsPaneOpen="False" DisplayMode="Overlay" Background="#2C397F">
         <SplitView.Pane>
-            <StackPanel >
-                <ListView x:Name="listView" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" >
-                    <ListViewItem Content="All" IsSelected="True"/>
-                    <ListViewItem Content="Windows" Margin="20 0 0 0"/>
-                    <ListViewItem Content="Network" Margin="20 0 0 0"/>
-                    <ListViewItem Content="Internet" Margin="20 0 0 0"/>
-                    <ListViewItem Content="Email" Margin="20 0 0 0"/>
-                    <ListViewItem Content="Homebanking" Margin="20 0 0 0"/>
-                </ListView>
+            <StackPanel>
+                <ListView Name="categoriesList" HorizontalAlignment="Stretch"  Grid.Row="1" VerticalAlignment="Stretch" 
+                          ItemsSource="{x:Bind Categories}" DisplayMemberPath="Title" SelectedValuePath="IdCategory" />
                 <Button Name="settingsBtn" Width="200" Background="#FF5977FF" Margin="0 20 0 0" Click="settingsBtn_Click">Account Settings</Button>
                 <Button Name="logoutBtn" Width="200" Background="#FFA20000" >Logout</Button>
-
             </StackPanel>
         </SplitView.Pane>
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="60" />
-                <RowDefinition Height="*" />
-            </Grid.RowDefinitions>
+        <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
             <StackPanel Orientation="Horizontal">
-                <Button Background="White" Click="SplitViewButton_Click" Margin="10">
-                    <StackPanel>
-                        <Rectangle Height="3" Width="20" Fill="Black" />
-                        <Rectangle Margin="0,5" Height="3" Width="20" Fill="Black" />
-                        <Rectangle Height="3" Width="20" Fill="Black" />
+                <AppBarButton Click="SplitViewButton_Click" HorizontalAlignment="Stretch"  d:LayoutOverrides="Width">
+                    <StackPanel  HorizontalAlignment="Center" VerticalAlignment="Center">
+                        <Rectangle Height="1" Width="20" Fill="White" />
+                        <Rectangle Height="1" Width="20" Fill="White" Margin="0,5" />
+                        <Rectangle Height="1" Width="20" Fill="White" />
                     </StackPanel>
-                </Button>
+                </AppBarButton>
                 <AppBarButton x:Name="newEntryAbb" HorizontalAlignment="Stretch" Icon="Accept" Label="New Entry" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="newEntryAbb_Click"/>
                 <AppBarButton x:Name="editEntryAbb" HorizontalAlignment="Stretch" Icon="Edit" Label="Edit" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="editEntryAbb_Click"/>
                 <AppBarButton x:Name="removeEntryAbb" HorizontalAlignment="Stretch" Icon="Cancel" Label="Remove" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
@@ -44,19 +33,19 @@
                 <AppBarButton x:Name="copyPasswordAbb" HorizontalAlignment="Stretch" Icon="Copy" Label="Copy Pass" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
                 <AppBarButton x:Name="refreshAbb" HorizontalAlignment="Stretch" Icon="Refresh" Label="Refresh" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
             </StackPanel>
-            <controls:DataGrid ItemsSource="{Binding Entries}" x:Name="DataGrid" SelectionMode="Multiple" DefaultOrderIndex="1" SelectedItem="{Binding SelectedEntry, Mode=OneTime}" SelectionChanged="OnSelectedItemsChanged">
+            <controls:DataGrid Margin="10" ItemsSource="{x:Bind  Entries}" x:Name="DataGrid" SelectionMode="Multiple" DefaultOrderIndex="0" SelectedItem="{Binding SelectedEntry, Mode=OneTime}" SelectionChanged="OnSelectedItemsChanged">
                 <controls:DataGrid.Columns>
-                    <controls:DataGridTextColumn  Binding="{Binding Title}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}">
+                    <controls:DataGridTextColumn  Binding="{Binding  Title}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}">
                         <controls:DataGridTextColumn.Header>
                             <TextBlock Text="Title"/>
                         </controls:DataGridTextColumn.Header>
                     </controls:DataGridTextColumn>
-                    <controls:DataGridTextColumn  Binding="{Binding Username}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}">
+                    <controls:DataGridTextColumn  Binding="{Binding  Username}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}">
                         <controls:DataGridTextColumn.Header>
                             <TextBlock Text="Username"/>
                         </controls:DataGridTextColumn.Header>
                     </controls:DataGridTextColumn>
-                    <controls:DataGridTextColumn  Binding="{Binding Password}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}">
+                    <controls:DataGridTextColumn  Binding="{Binding  Password}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}">
                         <controls:DataGridTextColumn.Header>
                             <TextBlock Text="Password"/>
                         </controls:DataGridTextColumn.Header>
@@ -72,8 +61,7 @@
                         </controls:DataGridTextColumn.Header>
                     </controls:DataGridTextColumn>
                 </controls:DataGrid.Columns>
-                
             </controls:DataGrid>
-        </Grid>
+        </StackPanel>
     </SplitView>
 </Page>

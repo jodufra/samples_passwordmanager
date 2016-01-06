@@ -15,7 +15,7 @@ namespace GDPClient.Others
             using (var httpClient = new HttpClient())
             {
                 Uri uri = new Uri(completeUrl);
-                HttpRequestMessage mSent = new HttpRequestMessage(HttpMethod.Post, uri);
+                HttpRequestMessage mSent = new HttpRequestMessage(method, uri);
                 return await httpClient.SendRequestAsync(mSent, HttpCompletionOption.ResponseContentRead);
             }
         }
