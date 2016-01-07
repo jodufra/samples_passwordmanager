@@ -14,7 +14,7 @@
                 <ListView Name="categoriesList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
                           ItemsSource="{Binding Categories}" DisplayMemberPath="Title" SelectedValuePath="IdCategory" />
                 <Button Name="settingsBtn" Width="200" Background="#FF5977FF" Margin="0 20 0 0" Click="settingsBtn_Click">Account Settings</Button>
-                <Button Name="logoutBtn" Width="200" Background="#FFA20000" >Logout</Button>
+                <Button Name="logoutBtn" Width="200" Background="#FFA20000" Click="logoutBtn_Click" >Logout</Button>
             </StackPanel>
         </SplitView.Pane>
         <StackPanel Orientation="Vertical" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">

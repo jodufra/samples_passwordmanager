@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
+using Utils;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
 using Windows.UI.Popups;
@@ -153,10 +154,65 @@ namespace GDPClient
 
         private async void settingsBtn_Click(object sender, RoutedEventArgs e)
         {
-            CDUserSettings cdus = new CDUserSettings();
-            await cdus.ShowAsync();
+            CallCDUserSettings(new CDUserSettings());
         }
 
+        private async void CallCDUserSettings(CDUserSettings cdus)
+        {
+            var result = await cdus.ShowAsync();
+            if(result == ContentDialogResult.Primary)
+            {
+                var msgs = new List<String>();
+                if (String.IsNullOrEmpty(cdus.Username))
+                    msgs.Add("Username is required.");
+                if (String.IsNullOrEmpty(cdus.Password))
+                    msgs.Add("Password is required.");
+                else if (cdus.Password != cdus.PasswordConfirm)
+                    msgs.Add("Password and confirmation aren't equal.");
+
+                if (!msgs.Any())
+                {
+                    try
+                    {
+                        var update = new
+                        {
+                            idUser = AppData.Instance.User.IdUser,
+                            username = cdus.Username,
+                            password = Security.GetSHA256Hash(cdus.Password)/*,
+                            certSubject = selectedCertificate == null ? null : selectedCertificate.Subject,
+                            certIssuer = selectedCertificate == null ? null : selectedCertificate.Issuer,
+                            certThumbprint = selectedCertificate == null ? null : Security.GetSHA256Hash(CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue()))),
+                            certSerialNumber = selectedCertificate == null ? null : CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.SerialNumber)),
+                            certValidFrom = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidFrom.DateTime,
+                            certValidTo = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidTo.DateTime*/
+                        };
+                        HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
+                            App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/update/" + AppData.Instance.User.IdUser,
+                            HttpMethod.Post);
+                        msgs.AddRange(JsonConvert.DeserializeObject<List<String>>(await mReceived.Content.ReadAsStringAsync()));
+                        if (mReceived.IsSuccessStatusCode)
+                        {
+                            ShowErrorMsg(String.Join(Environment.NewLine, msgs));
+                            LoadEntries();
+                            mReceived.Dispose();
+                            return;
+                        }
+                        mReceived.Dispose();
+                    }
+                    catch
+                    {
+                        msgs.Add("Unable to request the service!");
+                    }
+                }
+
+                if (msgs.Any())
+                {
+                    ShowErrorMsg(String.Join(Environment.NewLine, msgs));
+                    //CallCDNewEntry(cdus);
+                }
+            }
+                
+        }
 
         private void newEntryAbb_Click(object sender, RoutedEventArgs e)
         {
@@ -248,5 +304,24 @@ namespace GDPClient
             await messageDialog.ShowAsync();
         }
 
+        private void logoutBtn_Click(object sender, RoutedEventArgs e)
+        {
+            Logout();
+        }
+
+        private async void Logout()
+        {
+            try
+            {
+                HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
+                    App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/logout",
+                    HttpMethod.Post);
+                 mReceived.Dispose();
+            }
+            catch{}
+            AppData.Instance.Categories.Clear();
+            AppData.Instance.User = null;
+            Frame.Navigate(typeof(LoginPage));
+        }
     }
 }

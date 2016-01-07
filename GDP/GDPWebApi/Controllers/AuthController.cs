@@ -53,7 +53,7 @@ namespace GDPWebApi.Controllers
             var user = (new UserRepository()).GetByCertThumbprint(thumbprint);
 
             if (user == null)
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "No User Associated With That Thumbprint");
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "No User Associated With That Certificate");
 
             Security.Session.SignIn(user, false);
 

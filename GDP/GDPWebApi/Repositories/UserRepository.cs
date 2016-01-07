@@ -37,7 +37,7 @@ namespace GDPWebApi.Repositories
             }
         }
 
-        public User GetByCertThumbprint(String certThumbprint)
+        public User GetByCertThumbprint(string certThumbprint)
         {
             using (var conn = OpenConnection())
             {
@@ -68,11 +68,12 @@ namespace GDPWebApi.Repositories
 
             if (!errors.Any())
             {
+                string salt;
+                user.Password = GDPLibrary.Utils.Security.GetSHA256SaltyPassword(user.Username, user.Password, out salt);
+                user.Salt = salt;
+
                 if (user.IdUser == 0)
                 {
-                    string salt;
-                    user.Password = GDPLibrary.Utils.Security.GetSHA256SaltyPassword(user.Username, user.Password, out salt);
-                    user.Salt = salt;
                     user.Token = GDPLibrary.Utils.Security.GetSHA256Hash(user.Username + user.Password + user.Salt);
 
                     using (var conn = OpenConnection())
@@ -86,7 +87,6 @@ namespace GDPWebApi.Repositories
                                 Password = user.Password,
                                 Token = user.Token,
                                 Salt = user.Salt,
-                                IdUser = user.IdUser,
                                 Username = user.Username,
                                 CertSubject = user.CertSubject,
                                 CertIssuer = user.CertIssuer,
@@ -104,7 +104,30 @@ namespace GDPWebApi.Repositories
                 }
                 else
                 {
-
+                    using (var conn = OpenConnection())
+                    {
+                        var query = "UPDATE \"USER\" SET Username=@Username, Password=@Password, Salt=@Salt, CertSubject=@CertSubject, CertIssuer=@CertIssuer, CertThumbprint=@CertThumbprint, CertSerialNumber=@CertSerialNumber, CertValidFrom=@CertValidFrom, CertValidTo=@CertValidTo  WHERE IdUser = @idUser";
+                        try
+                        {
+                            SqlMapper.Query(conn, query, new
+                            {
+                                Password = user.Password,
+                                Salt = user.Salt,
+                                IdUser = user.IdUser,
+                                Username = user.Username,
+                                CertSubject = user.CertSubject,
+                                CertIssuer = user.CertIssuer,
+                                CertThumbprint = user.CertThumbprint,
+                                CertSerialNumber = user.CertSerialNumber,
+                                CertValidFrom = user.CertValidFrom,
+                                CertValidTo = user.CertValidTo,
+                            }, null, true, null, null).SingleOrDefault();
+                        }
+                        catch
+                        {
+                            errors.Add("Unexpected error");
+                        }
+                    }
                 }
             }
 
