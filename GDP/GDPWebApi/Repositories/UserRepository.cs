@@ -37,6 +37,15 @@ namespace GDPWebApi.Repositories
             }
         }
 
+        public User GetByCertThumbprint(String certThumbprint)
+        {
+            using (var conn = OpenConnection())
+            {
+                var query = "SELECT * FROM \"User\" WHERE CertThumbprint = @CertThumbprint";
+                return SqlMapper.Query<User>(conn, query, new { CertThumbprint = certThumbprint }, null, true, null, null).FirstOrDefault();
+            }
+        }
+
         public List<String> Save(User user)
         {
             var errors = new List<String>();
@@ -50,6 +59,12 @@ namespace GDPWebApi.Repositories
             }
             if (String.IsNullOrEmpty(user.Password))
                 errors.Add("Invalid Password");
+            if (!String.IsNullOrEmpty(user.CertThumbprint))
+            {
+                var aux = GetByCertThumbprint(user.CertThumbprint);
+                if (aux != null)
+                    errors.Add("Certificate is Already being Used");
+            }
 
             if (!errors.Any())
             {
