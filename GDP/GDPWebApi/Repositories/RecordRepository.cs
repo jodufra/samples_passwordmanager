@@ -40,6 +40,9 @@ namespace GDPWebApi.Repositories
             if (record.IdUser < 1)
                 errors.Add("User is required");
 
+            if (record.Entry == null || record.Entry.Length == 0)
+                errors.Add("Entry is invalid");
+
             if (!errors.Any())
             {
                 if (record.IdRecord == 0)
@@ -69,7 +72,7 @@ namespace GDPWebApi.Repositories
                     {
                         var query = "UPDATE \"Record\" " +
                                     "SET IdCategory=@IdCategory,Entry=@Entry " +
-                                    "WHERE IdRecord=@IdRecord AND IdUser = @IdUser;";
+                                    "WHERE IdRecord=@IdRecord AND IdUser=@IdUser;";
                         try
                         {
                             SqlMapper.Query(conn, query, new
@@ -95,7 +98,7 @@ namespace GDPWebApi.Repositories
             using (var conn = OpenConnection())
             {
                 var query = "DELETE FROM \"Record\" " +
-                            "WHERE IdRecord=@IdRecord AND IdUser = @IdUser;";
+                            "WHERE IdRecord=@IdRecord AND IdUser=@IdUser;";
                 SqlMapper.Query(conn, query, new
                 {
                     IdRecord = idRecord,

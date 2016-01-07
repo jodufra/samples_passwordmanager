@@ -15,7 +15,6 @@ namespace Entities
         public string Url { get; set; }
         public string Note { get; set; }
 
-
         public static Entry Parse(byte[] source, User user)
         {
             var decrypted = Security.DecryptAES(source, user.Token);

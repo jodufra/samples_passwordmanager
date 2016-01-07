@@ -45,12 +45,13 @@ namespace Utils
             try
             {
                 var keyHash = GetMD5Hash(publicKey);
-                var toDecryptBuffer = CryptographicBuffer.DecodeFromBase64String((String)Serializer.FromByteArray(source, typeof(String)));
+                var toDecryptBuffer = CryptographicBuffer.ConvertStringToBinary((String)Serializer.FromByteArray(source, typeof(String)), BinaryStringEncoding.Utf8);
                 var aes = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesEcbPkcs7);
                 var symetricKey = aes.CreateSymmetricKey(keyHash);
                 var buffEncrypted = CryptographicEngine.Encrypt(symetricKey, toDecryptBuffer, null);
-                var strEncrypted = CryptographicBuffer.EncodeToBase64String(buffEncrypted);
-                return Serializer.ToByteArray(strEncrypted);
+                byte[] result;
+                CryptographicBuffer.CopyToByteArray(buffEncrypted, out result);
+                return result;
             }
             catch (Exception ex)
             {
@@ -63,12 +64,13 @@ namespace Utils
             try
             {
                 var keyHash = GetMD5Hash(publicKey);
-                IBuffer toDecryptBuffer = CryptographicBuffer.DecodeFromBase64String((String)Serializer.FromByteArray(source, typeof(String)));
+                IBuffer toDecryptBuffer = CryptographicBuffer.ConvertStringToBinary((String)Serializer.FromByteArray(source, typeof(String)), BinaryStringEncoding.Utf8);
                 SymmetricKeyAlgorithmProvider aes = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesEcbPkcs7);
                 var symetricKey = aes.CreateSymmetricKey(keyHash);
                 var buffDecrypted = CryptographicEngine.Decrypt(symetricKey, toDecryptBuffer, null);
-                string strDecrypted = CryptographicBuffer.ConvertBinaryToString(BinaryStringEncoding.Utf8, buffDecrypted);
-                return Serializer.ToByteArray(strDecrypted);
+                byte[] result;
+                CryptographicBuffer.CopyToByteArray(buffDecrypted, out result);
+                return result;
             }
             catch (Exception ex)
             {

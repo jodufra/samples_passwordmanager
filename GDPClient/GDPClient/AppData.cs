@@ -11,10 +11,12 @@ namespace GDPClient
     {
         private static AppData instance;
         public static AppData Instance { get { return instance ?? (instance = new AppData()); } }
+
         public User User { get; set; }
         public List<Category> Categories { get; set; }
-        private AppData() {
 
+        private AppData() {
+            Categories = new List<Category>();
         }
         
 

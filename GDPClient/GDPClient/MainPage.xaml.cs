@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Runtime.CompilerServices;
 using System.Runtime.InteropServices.WindowsRuntime;
 using Windows.Foundation;
 using Windows.Foundation.Collections;
@@ -25,53 +26,101 @@ namespace GDPClient
     /// <summary>
     /// An empty page that can be used on its own or navigated to within a Frame.
     /// </summary>
-    public sealed partial class MainPage : Page, INotifyPropertyChanged
+    public sealed partial class MainPage : Page
     {
-        public event PropertyChangedEventHandler PropertyChanged;
+        public class MainPageModel : INotifyPropertyChanged
+        {
+            public event PropertyChangedEventHandler PropertyChanged;
+            
+            public List<Category> Categories { get { return AppData.Instance.Categories; } set { AppData.Instance.Categories = value; NotifyPropertyChanged("Categories"); } }
+            private List<Record> _record { get; set; }
+            public List<Record> Records { get { return _record; } set { _record = value; NotifyPropertyChanged("Records"); } }
 
-        public List<Category> Categories { get; set; }
-        public List<Entry> Entries { get; set; }
+            public MainPageModel()
+            {
+                _record = new List<Record>();
+            }
+
+
+            private void NotifyPropertyChanged(String propertyName = "")
+            {
+                PropertyChangedEventHandler handler = PropertyChanged;
+                if (null != handler)
+                {
+                    handler(this, new PropertyChangedEventArgs(propertyName));
+                }
+            }
+        }
+
+        private MainPageModel Model;
 
         public MainPage()
         {
-            Entries = new List<Entry>();
             this.InitializeComponent();
+            DataContext = (Model = new MainPageModel());
             LoadCategories();
             LoadEntries();
         }
 
+        #region Load
         private async void LoadCategories()
         {
-            Categories = new List<Category>();
-            //while (AppData.Instance.User == null) ;
+            var c = new List<Category>();
             try
             {
                 HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
                     App.LocalSettings.Values[App.ServiceConn].ToString() + "category",
                     HttpMethod.Get);
 
-                Categories.Add(new Category() { IdCategory = 0, Title = "All" });
                 if (mReceived.IsSuccessStatusCode)
                 {
-                    (JsonConvert.DeserializeObject<List<Category>>(await mReceived.Content.ReadAsStringAsync())).ForEach(p => Categories.Add(p));
-                    categoriesList.UpdateLayout();
+                    c.Add(new Category() { IdCategory = 0, Title = "All" });
+                    c.AddRange(JsonConvert.DeserializeObject<List<Category>>(await mReceived.Content.ReadAsStringAsync()));
                 }
                 else
                 {
-                    throw new Exception("Unable to load categories");
+                    throw new Exception("Unable to load categories.");
+                }
+                mReceived.Dispose();
+            }
+            catch (Exception e)
+            {
+                ShowErrorMsg(e.Message);
+            }
+            Model.Categories = c;
+        }
+
+        private async void LoadEntries()
+        {
+            var c = new List<Record>();
+            try
+            {
+                HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
+                    App.LocalSettings.Values[App.ServiceConn].ToString() + "record",
+                    HttpMethod.Get);
+
+                if (mReceived.IsSuccessStatusCode)
+                {
+                    c.AddRange(JsonConvert.DeserializeObject<List<Record>>(await mReceived.Content.ReadAsStringAsync()));
+                    c.ForEach(r => r.ParseEntry(AppData.Instance.User));
+                }
+                else
+                {
+                    throw new Exception();
                 }
                 mReceived.Dispose();
             }
             catch
             {
-                ShowErrorMsg("Unable to load categories.");
+                ShowErrorMsg("Unable to load records.");
             }
+            c.Add(new Record() { ParsedEntry = new Entry() { Note = "nasdasd", Password = "123", Title = "testing", Url = "google.com", Username = "master" } });
+            c.Add(new Record() { ParsedEntry = new Entry() { Note = "nasdasd", Password = "123", Title = "testing", Url = "google.com", Username = "master" } });
+            c.Add(new Record() { ParsedEntry = new Entry() { Note = "nasdasd", Password = "123", Title = "testing", Url = "google.com", Username = "master" } });
+            Model.Records = c;
         }
 
-        private void LoadEntries()
-        {
-            Entries = new List<Entry>();
-        }
+        #endregion
 
         #region TopBar
         private void SplitViewButton_Click(object sender, RoutedEventArgs e)
@@ -109,10 +158,74 @@ namespace GDPClient
         }
 
 
-        private async void newEntryAbb_Click(object sender, RoutedEventArgs e)
+        private void newEntryAbb_Click(object sender, RoutedEventArgs e)
         {
-            CDNewEntry cdne = new CDNewEntry();
-            await cdne.ShowAsync();
+            CallCDNewEntry(new CDNewEntry());
+        }
+
+        private async void CallCDNewEntry(CDNewEntry cdne)
+        {
+            var result = await cdne.ShowAsync();
+            if (result == ContentDialogResult.Primary)
+            {
+                var msgs = new List<String>();
+                if (String.IsNullOrEmpty(cdne.EntryTitle))
+                    msgs.Add("Title is required.");
+
+                if (String.IsNullOrEmpty(cdne.Username))
+                    msgs.Add("Username is required.");
+
+                if (String.IsNullOrEmpty(cdne.Password))
+                    msgs.Add("Password is required.");
+                else if (cdne.Password != cdne.PasswordConfirm)
+                    msgs.Add("Password and confirmation aren't equal.");
+
+                if (!msgs.Any())
+                {
+                    var record = new Record() { IdUser = AppData.Instance.User.IdUser };
+                    record.ParsedEntry = new Entry();
+                    record.IdCategory = cdne.SelectedCategory.IdCategory;
+                    record.ParsedEntry.Title = cdne.EntryTitle;
+                    record.ParsedEntry.Username = cdne.Username;
+                    record.ParsedEntry.Password = cdne.Password;
+                    record.ParsedEntry.Url = cdne.Url;
+                    record.ParsedEntry.Note = cdne.Note;
+                    record.CryptEntry(AppData.Instance.User);
+
+                    var model = new
+                    {
+                        IdCategory = record.IdCategory,
+                        IdUser = record.IdUser,
+                        Entry = record.Entry
+                    };
+
+                    try
+                    {
+                        HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
+                            App.LocalSettings.Values[App.ServiceConn].ToString() + "record",
+                            HttpMethod.Post, model.ToQueryString("record"));
+                        msgs.AddRange(JsonConvert.DeserializeObject<List<String>>(await mReceived.Content.ReadAsStringAsync()));
+                        if (mReceived.IsSuccessStatusCode)
+                        {
+                            ShowErrorMsg(String.Join(Environment.NewLine, msgs));
+                            LoadEntries();
+                            mReceived.Dispose();
+                            return;
+                        }
+                        mReceived.Dispose();
+                    }
+                    catch
+                    {
+                        msgs.Add("Unable to request the service!");
+                    }
+                }
+
+                if (msgs.Any())
+                {
+                    ShowErrorMsg(String.Join(Environment.NewLine, msgs));
+                    CallCDNewEntry(cdne);
+                }
+            }
         }
 
         private async void editEntryAbb_Click(object sender, RoutedEventArgs e)
@@ -135,12 +248,5 @@ namespace GDPClient
             await messageDialog.ShowAsync();
         }
 
-        private void RaisePropertyChanged(string property)
-        {
-            if (PropertyChanged != null)
-            {
-                PropertyChanged(this, new PropertyChangedEventArgs(property));
-            }
-        }
     }
 }

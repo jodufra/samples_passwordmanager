@@ -9,6 +9,7 @@ using System.Web.Http;
 
 namespace GDPWebApi.Controllers
 {
+    [RoutePrefix("api/Record")]
     public class RecordController : ApiController
     {
 
@@ -29,12 +30,18 @@ namespace GDPWebApi.Controllers
         }
 
         // POST: api/Record
-        public IEnumerable<String> Post([FromUri]Record record)
+        [HttpPost]
+        public HttpResponseMessage Post([FromUri]Record record)
         {
-            return RecordRepository.Save(record);
+            var errors = new List<String>();
+            if (record == null)
+                return Request.CreateResponse(HttpStatusCode.BadRequest, new List<String>() { "Record is missing." });
+            errors = RecordRepository.Save(record);
+            return Request.CreateResponse(errors.Any() ? HttpStatusCode.BadRequest : HttpStatusCode.OK, errors.Any() ? errors : new List<String>() { "Record registered with success." });
         }
 
         // PUT: api/Record/5
+        [HttpPut, Route("{id}")]
         public IEnumerable<String> Put(int id, [FromUri]Record record)
         {
             return RecordRepository.Save(record);

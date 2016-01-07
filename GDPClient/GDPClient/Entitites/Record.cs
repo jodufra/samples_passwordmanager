@@ -24,6 +24,7 @@ namespace Entities
         public int IdUser { get { return idUser; } set { idUser = value; } }
         [DataMember]
         public byte[] Entry { get { return entry; } set { entry = value; } }
+        public Entry ParsedEntry { get { return parsedEntry; } set { parsedEntry = value; } }
 
         public Entry ParseEntry(User user)
         {
@@ -33,7 +34,7 @@ namespace Entities
             if (entry == null || entry.Length == 0)
                 throw new Exception("Null or empty entries cant be parsed.");
 
-            return parsedEntry ?? (parsedEntry = Entities.Entry.Parse(entry, user));
+            return parsedEntry = Entities.Entry.Parse(entry, user);
         }
 
         public void CryptEntry(User user)
