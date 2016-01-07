@@ -12,7 +12,7 @@
         <SplitView.Pane>
             <StackPanel VerticalAlignment="Stretch" >
                 <ListView Name="categoriesList" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" 
-                          ItemsSource="{Binding Categories}" DisplayMemberPath="Title" SelectedValuePath="IdCategory" />
+                          ItemsSource="{Binding Categories}" DisplayMemberPath="Title" ItemClick="categoriesList_ItemClick"/>
                 <Button Name="settingsBtn" Width="200" Background="#FF5977FF" Margin="0 20 0 0" Click="settingsBtn_Click">Account Settings</Button>
                 <Button Name="logoutBtn" Width="200" Background="#FFA20000" >Logout</Button>
             </StackPanel>
@@ -28,12 +28,12 @@
                 </AppBarButton>
                 <AppBarButton x:Name="newEntryAbb" HorizontalAlignment="Stretch" Icon="Accept" Label="New Entry" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="newEntryAbb_Click"/>
                 <AppBarButton x:Name="editEntryAbb" HorizontalAlignment="Stretch" Icon="Edit" Label="Edit" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="editEntryAbb_Click"/>
-                <AppBarButton x:Name="removeEntryAbb" HorizontalAlignment="Stretch" Icon="Cancel" Label="Remove" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
-                <AppBarButton x:Name="copyUserAbb" HorizontalAlignment="Stretch" Icon="Copy" Label="Copy User" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
-                <AppBarButton x:Name="copyPasswordAbb" HorizontalAlignment="Stretch" Icon="Copy" Label="Copy Pass" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
-                <AppBarButton x:Name="refreshAbb" HorizontalAlignment="Stretch" Icon="Refresh" Label="Refresh" VerticalAlignment="Stretch" d:LayoutOverrides="Width"/>
+                <AppBarButton x:Name="removeEntryAbb" HorizontalAlignment="Stretch" Icon="Cancel" Label="Remove" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="removeEntryAbb_Click"/>
+                <AppBarButton x:Name="copyUserAbb" HorizontalAlignment="Stretch" Icon="Copy" Label="Copy User" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="copyUserAbb_Click"/>
+                <AppBarButton x:Name="copyPasswordAbb" HorizontalAlignment="Stretch" Icon="Copy" Label="Copy Pass" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="copyPasswordAbb_Click"/>
+                <AppBarButton x:Name="refreshAbb" HorizontalAlignment="Stretch" Icon="Refresh" Label="Refresh" VerticalAlignment="Stretch" d:LayoutOverrides="Width" Click="refreshAbb_Click"/>
             </StackPanel>
-            <controls:DataGrid  x:Name="DataGrid"  ItemsSource="{Binding Records}" HorizontalAlignment="Stretch" Margin="10" SelectionMode="Single" DefaultOrderIndex="0" SelectedItem="{Binding SelectedEntry, Mode=OneTime}" SelectionChanged="OnSelectedItemsChanged">
+            <controls:DataGrid  x:Name="DataGrid"  ItemsSource="{Binding Records}" HorizontalAlignment="Stretch" Margin="10" SelectionMode="Single" DefaultOrderIndex="0" SelectedItem="{Binding SelectedEntry, Mode=OneTime}">
                 <controls:DataGrid.Columns>
                     <controls:DataGridTextColumn Width="100" Header="Title"  Binding="{Binding  ParsedEntry.Title}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}"/>
                     <controls:DataGridTextColumn Width="100" Header="Username" Binding="{Binding  ParsedEntry.Username}" IsAscendingDefault="False" d:DataContext="{d:DesignInstance Type=models:Entry}"/>

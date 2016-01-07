@@ -44,29 +44,34 @@ namespace Utils
                 throw new ArgumentNullException("publicKey");
             try
             {
-                var keyHash = GetMD5Hash(publicKey);
-                var toDecryptBuffer = CryptographicBuffer.ConvertStringToBinary((String)Serializer.FromByteArray(source, typeof(String)), BinaryStringEncoding.Utf8);
+                var str = Convert.ToBase64String(source);
+                var toEncryptBuffer = CryptographicBuffer.DecodeFromBase64String(str);
                 var aes = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesEcbPkcs7);
-                var symetricKey = aes.CreateSymmetricKey(keyHash);
-                var buffEncrypted = CryptographicEngine.Encrypt(symetricKey, toDecryptBuffer, null);
+                var symetricKey = aes.CreateSymmetricKey(GetMD5Hash(publicKey));
+                var buffEncrypted = CryptographicEngine.Encrypt(symetricKey, toEncryptBuffer, null);
                 byte[] result;
                 CryptographicBuffer.CopyToByteArray(buffEncrypted, out result);
                 return result;
             }
             catch (Exception ex)
             {
+
                 return null;
             }
         }
 
         public static byte[] DecryptAES(byte[] source, string publicKey)
         {
+            if (source == null || source.Length == 0)
+                throw new ArgumentNullException("source");
+            if (string.IsNullOrEmpty(publicKey))
+                throw new ArgumentNullException("publicKey");
             try
             {
-                var keyHash = GetMD5Hash(publicKey);
-                IBuffer toDecryptBuffer = CryptographicBuffer.ConvertStringToBinary((String)Serializer.FromByteArray(source, typeof(String)), BinaryStringEncoding.Utf8);
+                var str = Convert.ToBase64String(source);
+                IBuffer toDecryptBuffer = CryptographicBuffer.DecodeFromBase64String(str);
                 SymmetricKeyAlgorithmProvider aes = SymmetricKeyAlgorithmProvider.OpenAlgorithm(SymmetricAlgorithmNames.AesEcbPkcs7);
-                var symetricKey = aes.CreateSymmetricKey(keyHash);
+                var symetricKey = aes.CreateSymmetricKey(GetMD5Hash(publicKey));
                 var buffDecrypted = CryptographicEngine.Decrypt(symetricKey, toDecryptBuffer, null);
                 byte[] result;
                 CryptographicBuffer.CopyToByteArray(buffDecrypted, out result);
@@ -74,6 +79,7 @@ namespace Utils
             }
             catch (Exception ex)
             {
+
                 return null;
             }
         }

@@ -26,7 +26,6 @@ namespace GDPClient
         public string EntryTitle;
         public string Username;
         public string Password;
-        public string PasswordConfirm;
         public string Url;
         public string Note;
         public Category SelectedCategory { get { return (Category)categoryCombo.SelectedItem; } }
@@ -42,7 +41,6 @@ namespace GDPClient
             EntryTitle = titleBox.Text;
             Username = userNameBox.Text;
             Password = passwordBox.Text;
-            PasswordConfirm = passwordConfirmBox.Text;
             Url = urlBox.Text;
             Note = noteBox.Text;
         }

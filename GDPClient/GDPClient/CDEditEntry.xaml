@@ -22,13 +22,15 @@
             <TextBlock Text="Title:" FontSize="12"/>
             <TextBox Name="titleBox"  />
             <TextBlock Text="User Name:" FontSize="12"/>
-            <TextBox Name="userNameBox" />
+            <TextBox Name="userNameBox"  />
             <TextBlock Text="Password:" FontSize="12"/>
-            <PasswordBox Name="passwordBox1"  />
-            <TextBlock Text="Repeat:" FontSize="12"/>
-            <PasswordBox Name="passwordBox2" />
-            <TextBlock Text="Note:" FontSize="12" Margin="0 10 0 0"/>
-            <RichEditBox  Height="82"/>
+            <TextBox Name="passwordBox"  />
+            <TextBlock Text="Url:" FontSize="12" />
+            <TextBox Name="urlBox" />
+            <TextBlock Text="Category:" FontSize="12"/>
+            <ComboBox Name="categoryCombo" HorizontalAlignment="Stretch" DisplayMemberPath="Title" />
+            <TextBlock Text="Note:" FontSize="12"/>
+            <TextBox Name="noteBox" Height="82"/>
         </StackPanel>
     </Grid>
 </ContentDialog>
