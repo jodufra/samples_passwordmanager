@@ -62,7 +62,7 @@ namespace GDPClient
                     password = Security.GetSHA256Hash(passwordBox.Password),
                     certSubject = selectedCertificate == null ? null : selectedCertificate.Subject,
                     certIssuer = selectedCertificate == null ? null : selectedCertificate.Issuer,
-                    certThumbprint = selectedCertificate == null ? null : CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue())),
+                    certThumbprint = selectedCertificate == null ? null : Security.GetSHA256Hash(CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue()))),
                     certSerialNumber = selectedCertificate == null ? null : CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.SerialNumber)),
                     certValidFrom = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidFrom.DateTime,
                     certValidTo = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidTo.DateTime
@@ -180,6 +180,27 @@ namespace GDPClient
             messageDialog.Commands.Add(new UICommand("OK"));
             messageDialog.DefaultCommandIndex = 0;
             await messageDialog.ShowAsync();
+        }
+
+        private void usernameBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            executeSigUp(sender, e);
+        }
+
+        private void passwordBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            executeSigUp(sender, e);
+        }
+
+        private void passwordConfirmBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            executeSigUp(sender, e);
+        }
+
+        private void executeSigUp(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+                okBtn_Click(sender, e);
         }
     }
 }

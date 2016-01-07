@@ -47,8 +47,17 @@ namespace GDPWebApi.Controllers
         [HttpPost, Route("LoginCertificate")]
         public HttpResponseMessage LoginCertificate([FromUri] String thumbprint)
         {
-            
-            return Request.CreateResponse(HttpStatusCode.NotImplemented);
+            if (String.IsNullOrEmpty(thumbprint))
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "Thumbprint is invalid or missing.");
+
+            var user = (new UserRepository()).GetByCertThumbprint(thumbprint);
+
+            if (user == null)
+                return Request.CreateResponse(HttpStatusCode.BadRequest, "No User Associated With That Thumbprint");
+
+            Security.Session.SignIn(user, false);
+
+            return Request.CreateResponse(HttpStatusCode.OK, user);
         }
 
         public class AuthRegisterIM

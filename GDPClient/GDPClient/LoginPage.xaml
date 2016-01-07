@@ -31,14 +31,14 @@
                     <StackPanel Name="certFields" Visibility="Collapsed">
                         <TextBlock Text="Certificate:" />
                         <StackPanel Orientation="Horizontal">
-                            <ComboBox Name="certificatesListCB" Width="305" SelectionChanged="certificatesListCB_SelectionChanged"/>
+                            <ComboBox Name="certificatesListCB" Width="305" SelectionChanged="certificatesListCB_SelectionChanged" />
                             <Button x:Name="refreshCertsBtn"  HorizontalAlignment="Stretch" VerticalAlignment="Stretch" FontFamily="Segoe MDL2 Assets" Content="&#xE72C;" ToolTipService.ToolTip="Refresh certificates from store" Click="refreshCertsBtn_Click" />
                         </StackPanel>
                     </StackPanel>
                     
                     <StackPanel Name="loginFields">
-                        <TextBox Name="usernameBox" PlaceholderText="Username" />
-                        <PasswordBox Name="passwordBox" PlaceholderText="Password" />
+                        <TextBox Name="usernameBox" PlaceholderText="Username" KeyDown="usernameBox_KeyDown" />
+                        <PasswordBox Name="passwordBox" PlaceholderText="Password" KeyDown="passwordBox_KeyDown" />
                         <HyperlinkButton HorizontalAlignment="Left" Content="Forgot Password?" Foreground="#FFB9B9B9" FontWeight="SemiLight" BorderThickness="0,2" Padding="0,4,0,5" />
                     </StackPanel> 
                 </StackPanel>
@@ -51,7 +51,6 @@
                         <Button Name="signupBtn" Content="Sign Up" Background="#FFF1C302" Click="signupBtn_Click" />
                         <Button Name="serviceConnBtn" Content="&#xE713;" FontFamily="Segoe MDL2 Assets" Click="serviceConnBtn_Click" HorizontalAlignment="Right" Height="33" Width="43"/>
                     </Grid>
-                    
                 </StackPanel>
             </Grid>
         </StackPanel>

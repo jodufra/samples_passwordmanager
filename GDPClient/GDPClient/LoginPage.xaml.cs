@@ -52,7 +52,7 @@ namespace GDPClient
             if (certloginTb.IsChecked == true)
             {
                 if (!certificatesListCB.IsEnabled)
-                    error = "Their are no certificates on the store." + Environment.NewLine;
+                    error = "There are no certificates on the store." + Environment.NewLine;
                 if (selectedCertificate == null && certList.Count >0)
                     error = "Select a valid certificate." + Environment.NewLine;
 
@@ -60,24 +60,25 @@ namespace GDPClient
                 {
                     try
                     {
-                        var thumprint = new
+                        var thumbprint = new
                         {
-                            thumprint = Security.GetSHA256Hash(CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue())))
+                            thumbprint = Security.GetSHA256Hash(CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue())))
                         };
 
                         HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
                             App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/LoginCertificate",
                             HttpMethod.Post,
-                            thumprint.ToQueryString());
+                            thumbprint.ToQueryString());
 
                         if (mReceived.IsSuccessStatusCode)
                         {
-                           
-                            //Frame.Navigate(typeof(MainPage));
+                            User user = JsonConvert.DeserializeObject<User>(await mReceived.Content.ReadAsStringAsync());
+                            AppData.Instance.User = user;
+                            Frame.Navigate(typeof(MainPage));
                         }
                         else
                         {
-                           
+                            error = JsonConvert.DeserializeObject<String>(await mReceived.Content.ReadAsStringAsync());
                         }
                         mReceived.Dispose();
                     }
@@ -231,6 +232,22 @@ namespace GDPClient
                 //get cert info
                 selectedCertificate = certList[certificatesListCB.SelectedIndex - 1];
             }
+        }
+
+        private void usernameBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            executeLogin(sender, e);
+        }
+
+        private void passwordBox_KeyDown(object sender, KeyRoutedEventArgs e)
+        {
+            executeLogin(sender, e);
+        }
+
+        private void executeLogin(object sender, KeyRoutedEventArgs e)
+        {
+            if (e.Key == Windows.System.VirtualKey.Enter)
+                loginBtn_Click(sender, e);
         }
     }
 }
