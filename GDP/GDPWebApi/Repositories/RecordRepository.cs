@@ -40,7 +40,7 @@ namespace GDPWebApi.Repositories
             if (record.IdUser < 1)
                 errors.Add("User is required");
 
-            if (record.Entry == null || record.Entry.Length == 0)
+            if (record.Entry == null || record.Entry.Length <= 1)
                 errors.Add("Entry is invalid");
 
             if (!errors.Any())

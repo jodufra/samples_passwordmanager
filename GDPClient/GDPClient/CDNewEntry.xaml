@@ -25,14 +25,12 @@
             <TextBox Name="userNameBox"  />
             <TextBlock Text="Password:" FontSize="12"/>
             <TextBox Name="passwordBox"  />
-            <TextBlock Text="Password Confirm:" FontSize="12"/>
-            <TextBox Name="passwordConfirmBox" />
             <TextBlock Text="Url:" FontSize="12" />
             <TextBox Name="urlBox" />
             <TextBlock Text="Category:" FontSize="12"/>
             <ComboBox Name="categoryCombo" HorizontalAlignment="Stretch" DisplayMemberPath="Title" />
-            <TextBlock Text="Note:" FontSize="12"/>
-            <TextBox Name="noteBox"/>
+            <TextBlock Text="Note:" FontSize="12" />
+            <TextBox Name="noteBox" Height="82"/>
         </StackPanel>
     </Grid>
 </ContentDialog>

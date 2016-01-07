@@ -1,4 +1,5 @@
 ﻿using GDPLibrary.Entities;
+using GDPWebApi.Models;
 using GDPWebApi.Repositories;
 using System;
 using System.Collections.Generic;
@@ -23,31 +24,19 @@ namespace GDPWebApi.Controllers
             return RecordRepository.Get();
         }
 
-        // GET: api/Record/5
-        public Record Get(int id)
-        {
-            return RecordRepository.Get(id);
-        }
-
         // POST: api/Record
         [HttpPost]
-        public HttpResponseMessage Post([FromUri]Record record)
+        public HttpResponseMessage Post([FromUri]RecordModel record)
         {
             var errors = new List<String>();
             if (record == null)
                 return Request.CreateResponse(HttpStatusCode.BadRequest, new List<String>() { "Record is missing." });
-            errors = RecordRepository.Save(record);
+            errors = RecordRepository.Save(record.Parse());
             return Request.CreateResponse(errors.Any() ? HttpStatusCode.BadRequest : HttpStatusCode.OK, errors.Any() ? errors : new List<String>() { "Record registered with success." });
         }
 
-        // PUT: api/Record/5
-        [HttpPut, Route("{id}")]
-        public IEnumerable<String> Put(int id, [FromUri]Record record)
-        {
-            return RecordRepository.Save(record);
-        }
-
         // DELETE: api/Record/5
+        [HttpDelete, Route("{id}")]
         public void Delete(int id)
         {
             RecordRepository.Remove(id);
