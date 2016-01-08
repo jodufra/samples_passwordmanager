@@ -10,6 +10,7 @@ using System.Web.Http;
 namespace GDPWebApi.Controllers
 {
     [Authorize]
+    [RoutePrefix("api/User")]
     public class UserController : ApiController
     {
         public class UserUpdateIM
@@ -44,9 +45,9 @@ namespace GDPWebApi.Controllers
         public HttpResponseMessage Update([FromUri]UserUpdateIM update)
         {
             if (update == null)
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Information is missing.");
+                return Request.CreateResponse(HttpStatusCode.BadRequest, new List<String>() { "Information is missing." });
             if (update.IdUser < 1)
-                return Request.CreateResponse(HttpStatusCode.BadRequest, "Invalid User id.");
+                return Request.CreateResponse(HttpStatusCode.BadRequest, new List<String>() { "Invalid User id." });
             var errors = (new UserRepository()).Save(update.Parse());
             return Request.CreateResponse(errors.Any() ? HttpStatusCode.BadRequest : HttpStatusCode.OK, errors.Any() ? errors : new List<String>() { "User updated with success." });
         }

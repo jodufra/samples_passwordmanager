@@ -36,7 +36,6 @@ namespace GDPClient
             public List<Category> Categories { get { return AppData.Instance.Categories; } set { AppData.Instance.Categories = value; NotifyPropertyChanged("Categories"); IdCategoryFilter = 0; } }
             private List<Record> _records { get; set; }
             public List<Record> Records { get { return _idCategoryFilter == 0 ? _records : _records.Where(c => c.IdCategory == _idCategoryFilter).ToList(); } set { _records = value; NotifyPropertyChanged("Records"); } }
-
             private int _idCategoryFilter;
             public int IdCategoryFilter { get { return _idCategoryFilter; } set { _idCategoryFilter = value; NotifyPropertyChanged("IdCategoryFilter"); NotifyPropertyChanged("Records"); } }
 
@@ -123,21 +122,25 @@ namespace GDPClient
         }
         #endregion
 
+        private void categoriesList_ItemClick(object sender, ItemClickEventArgs e)
+        {
+            Model.IdCategoryFilter = Model.Categories[categoriesList.SelectedIndex].IdCategory;
+        }
+
         #region TopBar
         private void SplitViewButton_Click(object sender, RoutedEventArgs e)
         {
             MySplitView.IsPaneOpen = !MySplitView.IsPaneOpen;
         }
 
-        private async void settingsBtn_Click(object sender, RoutedEventArgs e)
+        private void settingsBtn_Click(object sender, RoutedEventArgs e)
         {
             CallCDUserSettings(new CDUserSettings());
         }
-
         private async void CallCDUserSettings(CDUserSettings cdus)
         {
             var result = await cdus.ShowAsync();
-            if(result == ContentDialogResult.Primary)
+            if (result == ContentDialogResult.Primary)
             {
                 var msgs = new List<String>();
                 if (String.IsNullOrEmpty(cdus.Username))
@@ -155,29 +158,29 @@ namespace GDPClient
                         {
                             idUser = AppData.Instance.User.IdUser,
                             username = cdus.Username,
-                            password = Security.GetSHA256Hash(cdus.Password)/*,
-                            certSubject = selectedCertificate == null ? null : selectedCertificate.Subject,
-                            certIssuer = selectedCertificate == null ? null : selectedCertificate.Issuer,
-                            certThumbprint = selectedCertificate == null ? null : Security.GetSHA256Hash(CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.GetHashValue()))),
-                            certSerialNumber = selectedCertificate == null ? null : CryptographicBuffer.EncodeToHexString(CryptographicBuffer.CreateFromByteArray(selectedCertificate.SerialNumber)),
-                            certValidFrom = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidFrom.DateTime,
-                            certValidTo = selectedCertificate == null ? null : (DateTime?)selectedCertificate.ValidTo.DateTime*/
+                            password = Security.GetSHA256Hash(cdus.Password),
+                            certSubject = (string)null,
+                            certIssuer = (string)null,
+                            certSerialNumber = (string)null,
+                            certValidFrom = (string)null,
+                            certValidTo = (string)null,
                         };
                         HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
-                            App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/update/" + AppData.Instance.User.IdUser,
-                            HttpMethod.Post);
+                            App.LocalSettings.Values[App.ServiceConn].ToString() + "user/update",
+                            HttpMethod.Post, update.ToQueryString("update"));
                         msgs.AddRange(JsonConvert.DeserializeObject<List<String>>(await mReceived.Content.ReadAsStringAsync()));
                         if (mReceived.IsSuccessStatusCode)
                         {
                             ShowErrorMsg(String.Join(Environment.NewLine, msgs));
-                            LoadEntries();
                             mReceived.Dispose();
+                            Logout();
                             return;
                         }
                         mReceived.Dispose();
                     }
                     catch
                     {
+
                         msgs.Add("Unable to request the service!");
                     }
                 }
@@ -185,10 +188,10 @@ namespace GDPClient
                 if (msgs.Any())
                 {
                     ShowErrorMsg(String.Join(Environment.NewLine, msgs));
-                    //CallCDNewEntry(cdus);
+                    CallCDUserSettings(cdus);
                 }
             }
-                
+
         }
 
         private void newEntryAbb_Click(object sender, RoutedEventArgs e)
@@ -392,11 +395,6 @@ namespace GDPClient
 
         #endregion
 
-        private void OnSelectedItemsChanged(object sender, SelectionChangedEventArgs e)
-        {
-
-        }
-
         private async void ShowErrorMsg(String msg)
         {
             var messageDialog = new MessageDialog(msg);
@@ -417,9 +415,9 @@ namespace GDPClient
                 HttpResponseMessage mReceived = await Others.ApiRequest.MakeRequest(
                     App.LocalSettings.Values[App.ServiceConn].ToString() + "auth/logout",
                     HttpMethod.Post);
-                 mReceived.Dispose();
+                mReceived.Dispose();
             }
-            catch{}
+            catch { }
             AppData.Instance.Categories.Clear();
             AppData.Instance.User = null;
             Frame.Navigate(typeof(LoginPage));

@@ -15,17 +15,5 @@ namespace Entities
         public string Url { get; set; }
         public string Note { get; set; }
 
-        public static Entry Parse(byte[] source, User user)
-        {
-            var decrypted = Security.DecryptAES(source, user.Token);
-            return Serializer.FromByteArray(source, typeof(Entry)) as Entry;
-        }
-
-        public static byte[] Crypt(Entry entry, User user)
-        {
-            var source = Serializer.ToByteArray(entry);
-            return Security.EncryptAES(source, user.Token);
-        }
-
     }
 }
